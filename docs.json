@@ -11,45 +11,39 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Home",
         "groups": [
           {
-            "group": "Get Started",
+            "group": "Welcome",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "home/welcome",
+              "home/why-debridge",
+              "home/use-cases"
             ]
           },
           {
-            "group": "Essentials",
+            "group": "deBridge Points",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
+              "affiliates/referrers",
+              "affiliates/integrators"
             ]
           }
         ]
       },
       {
-        "tab": "API Reference",
+        "tab": "Products",
         "groups": [
           {
-            "group": "API Documentation",
+            "group": "IAAS",
             "pages": [
-              "api-reference/introduction"
+              "iaas/getting-started"
             ]
           },
           {
-            "group": "Endpoint Examples",
+            "group": "dePort",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "dePort/getting-started",
+              "dePort/transfer-flow"
             ]
           }
         ]
@@ -59,18 +53,23 @@
       "anchors": [
         {
           "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
+          "href": "https://docs.debridge.finance/",
+          "icon": "book-open-cover"
+        },
+        {
+          "anchor": "deBridge Messaging Protocol",
+          "href": "https://acme-fc8786fa.mintlify.app/",
+          "icon": "book-open-cover"
+        },
+        {
+          "anchor": "deBridge Liquidity Network",
+          "href": "https://acme-1c46979f.mintlify.app/",
           "icon": "book-open-cover"
         },
         {
           "anchor": "Community",
           "href": "https://mintlify.com/community",
-          "icon": "slack"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+          "icon": "discord"
         }
       ]
     }
