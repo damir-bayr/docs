@@ -75,12 +75,12 @@
         },
         {
           "anchor": "deBridge Messaging Protocol",
-          "href": "https://acme-fc8786fa.mintlify.app/",
+          "href": "https://acme-fc8786fa.mintlify.app/dmp/protocol-overview",
           "icon": "envelope"
         },
         {
           "anchor": "deBridge Liquidity Network",
-          "href": "https://acme-1c46979f.mintlify.app/",
+          "href": "https://acme-1c46979f.mintlify.app/overview/introduction",
           "icon": "envelope-open-dollar"
         },
         {
