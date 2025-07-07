@@ -2,22 +2,93 @@
 title: "DLN Overview"
 ---
 
-Aute nostrud occaecat commodo aliqua. Consequat veniam minim consequat laboris sit cillum. Aliquip sit Lorem sunt laborum proident pariatur ullamco id incididunt ullamco aliqua.
+# Background
+For a long time, bridges were viewed only as value transfer protocols and custodians responsible for locking assets on the source 
+chain and issuing wrapped representations of the assets on the destination chain.
 
-Nostrud enim esse laborum elit enim elit enim fugiat Lorem dolor qui id proident adipisicing. Culpa labore aliqua labore dolor elit adipisicing non nostrud. Consectetur deserunt est voluptate veniam ullamco irure consequat nostrud excepteur id veniam dolor. Adipisicing commodo dolor eu sint culpa. Quis consequat pariatur tempor ad. Aliquip aute dolor ea ullamco labore pariatur Lorem cupidatat enim exercitation Lorem Lorem consequat.
+The deBridge protocol drastically expands the concept of traditional bridges by introducing generic cross-chain message transfers. 
+Now developers and builders can interconnect any smart contracts across different blockchains to perform transfers of data and 
+transaction calls (messages that contain instructions to be executed, or CALLDATA) together with the value transfer in the same transaction. 
 
-Enim officia id enim fugiat cupidatat esse adipisicing nulla duis anim laborum elit mollit. Adipisicing enim sint reprehenderit amet fugiat labore id eu esse esse quis eiusmod adipisicing ex. Tempor enim ex tempor velit do cupidatat consequat ut voluptate ea esse dolore. Dolor incididunt in velit laborum Lorem ex. Consectetur ad deserunt veniam fugiat tempor nisi.
+This opens up endless opportunities to build complex cross-chain interactions, such as multi-chain applications, next-layer protocols, 
+automated cross-chain arbitraging services, object or NFT bridges, and more! 
 
-Eiusmod enim sint irure aliqua sit ad et occaecat laboris. Aliqua aliquip velit commodo proident. Id proident in labore nostrud fugiat ut. Fugiat consequat fugiat dolor ipsum deserunt aliquip Lorem ad. Magna sunt tempor eiusmod dolore elit. Nulla velit cupidatat sint ipsum Lorem incididunt. Labore duis enim labore aliquip eiusmod fugiat dolor velit exercitation cillum et.
+As a generic messaging protocol and a cross-chain interoperability infrastructure, deBridge can be used to build any arbitrary 
+cross-chain applications (deApps). Notable solutions built on top of deBridge are:
 
-Ullamco irure duis culpa quis consequat elit ipsum id voluptate irure excepteur reprehenderit. Veniam et minim amet id deserunt reprehenderit incididunt labore voluptate ex. Ut fugiat incididunt exercitation nulla est magna est irure cupidatat. Velit quis nostrud adipisicing non veniam incididunt.
+- [deBridge Liquidity Network](https://app.debridge.finance/) (DLN) — a high-performance cross-chain value transfer infrastructure built 
+on deBridge with 0-TVL design (no liquidity pools).
+- [dePort](https://app.debridge.finance/deport) —  a native bridge for assets that allows protocols to bridge tokens and create utility 
+for their synthetic representation (deTokens) in other chains.
+- deNFT — an infrastructure for cross-chain NFT transfers and a solution to create cross-chain native NFTs (coming soon).
 
-Anim aliqua esse amet incididunt in sunt exercitation non nostrud proident eiusmod velit officia. Cupidatat duis irure exercitation excepteur est cillum veniam quis eu incididunt deserunt eu reprehenderit. Excepteur sunt Lorem quis minim sit. Ad ullamco culpa esse et sunt minim mollit adipisicing nisi aute officia velit. Sunt dolore qui proident consectetur sit sint exercitation veniam consectetur proident laboris cillum. Anim ipsum ipsum est aliquip sunt quis ipsum adipisicing ullamco fugiat mollit non culpa laborum.
+Your application can be the next one and this documentation and tutorials will help to dive into the protocol infrastructure 
+and elaborate on questions you might face while building your integration with deBridge.
 
-Cupidatat tempor ex sunt proident Lorem eu excepteur. Ea pariatur ad qui laboris nostrud qui magna nisi fugiat Lorem ad nisi eu consequat. Velit tempor amet nostrud pariatur ut ex. Irure ut id reprehenderit id consectetur ex veniam sunt aute Lorem laborum sint id. Deserunt proident sit incididunt aute officia. Cupidatat in officia non dolore aute sunt sint amet ad nostrud. Eu excepteur laborum ea ut non duis commodo tempor qui sint ipsum excepteur veniam voluptate.
+# Protocol Structure
 
-Elit velit reprehenderit reprehenderit proident deserunt voluptate eu ut consectetur tempor veniam exercitation excepteur. Do laboris est velit labore pariatur. Mollit sint quis nisi cillum deserunt. Esse cillum culpa ex aliqua. Enim Lorem est cupidatat sint tempor enim commodo consectetur occaecat exercitation in Lorem adipisicing. Anim excepteur proident exercitation et nostrud eu proident irure culpa mollit ad. Veniam irure mollit cupidatat eiusmod aliquip ex.
+The protocol consists of 2 key layers:
+- Protocol layer — on-chain smart contracts deployed in every blockchain supported by deBridge
+- Infrastructure layer — off-chain validation nodes operated by validators who are elected by the deBridge governance
 
-Mollit ut Lorem deserunt est incididunt amet ullamco nostrud amet laboris cillum. Pariatur incididunt commodo id proident esse anim elit esse aliquip dolor in Lorem eiusmod aliquip. Nostrud excepteur aliquip est esse laborum cillum.
+![DMP Layers](/images/DMP-layers.avif)
 
-Commodo ex Lorem velit do et cillum occaecat velit. Fugiat aliquip mollit ullamco enim id laboris aute irure nisi et. Enim cillum incididunt culpa id aliquip adipisicing cupidatat mollit cillum. Mollit veniam laborum do velit fugiat aliqua irure. Do cillum nulla ipsum sit dolore adipisicing aliquip ex mollit proident reprehenderit anim. Proident et exercitation eu commodo ad qui. Adipisicing dolore esse do eiusmod aliqua esse veniam enim proident laboris occaecat.
+*The protocol layer* is a set of on-chain smart contracts used for asset management, routing of cross-chain transactions, 
+cross-validation of validators' signatures, and reaching consensus among validators as the transaction is treated as valid 
+only if the minimum required threshold of validators' signatures is achieved. The governance manages the parameters of the 
+smart contracts, such as fees, supported chains, the whitelist of elected validators, validators payout ratio, and more.
+
+The infrastructure layer is represented by a set of reputable validators who operate a deBridge node alongside full nodes 
+of every blockchain supported by the protocol. 
+
+# Off-chain validation
+For all bridging protocols, it’s important to have a chain-agnostic design and make the protocol operation fully independent 
+of the uptime of all supported blockchains. In case of downtime in any underlying blockchains, the protocol should keep 
+processing the transactions for all other chains. 
+
+deBridge has taken a unique approach with an off-chain transaction validation mechanic where validators don’t need to broadcast 
+any transactions and bear gas costs. Every cross-chain transaction initiated through the deBridge smart contract is assigned a 
+unique hash (Submission Id). deBridge validators are tracking all transactions that pass through the smart contract of the 
+protocol and soon as the transaction achieves its finality, each validator is obliged to sign the Submission by its private key. 
+
+The resulting signature is saved into Arweave, a decentralized data availability layer. Any arbitrary user or keeper can collect 
+validator signatures from Arweave and pass them to the DebridgeGate smart contract in the target chain alongside all transaction 
+parameters. Based on the passed set of parameters, the deBridge smart contract will restore a unique hash of the transaction and 
+cross-validate its signatures from all designated validators. In case the minimum required number of signatures is valid, the 
+DebridgeGate smart contract delivers the message on the destination chain by executing its' call data.
+
+With this design, even in the eventuality that some blockchains experience downtime, deBridge will still remain fully functional 
+and all transactions going to the paused chain will be processed as soon as it resumes operation. 
+
+# Transaction Finality Requirements
+Due to the probabilistic finality model of most blockchains, before the message is validated by the deBridge infrastructure, 
+validators wait for the required number of block confirmations before signing its Submission Id. The number of required block 
+confirmations is based on the social consensus of transaction finality in each supported blockchain. 
+
+# Delegated Staking and Slashing
+Validators play a crucial role in interoperability protocols since in addition to being infrastructure providers, they also 
+secure the protocol by validating all cross-chain transactions passing through the protocol. Validators work for and are elected 
+by the governance and should bear financial responsibility for the service they provide, assured through the risk of being slashed 
+in case of validating a non-existent transaction or failing to maintain infrastructure uptime. Anyone can help to secure the 
+protocol by becoming a delegator and staking assets (e.g. ETH, USDC) for validators’ collateral. Both validators and their 
+delegators receive part of the protocol fees as an economic incentive for helping to secure the protocol and maintain its 
+infrastructure.
+
+# How it works
+deBridge is DeFi's internet of liquidity — a foundational layer that enables users and protocols to transport any arbitrary 
+messages or CALLDATA across different chains enabling the ability to create any cross-chain solutions, such as deSwap — value 
+transferring protocol built on top of deBridge.
+
+![DMP Flow Simplified](/images/DMP-flow-simplified.avif)
+
+The ability to pass arbitrary data opens up opportunities for true cross-chain composability of smart contracts and protocols 
+that can now interact with each other despite they live in different blockchain ecosystems. An example would be an algorithmic 
+stablecoin protocol on Ethereum that opens positions in perpetual markets protocol on Solana or Arbitrum in order to maintain 
+the peg of its asset.
+
+deBridge allows the building of a new generation of cross-chain protocols and applications that haven’t been possible in the past. 
+Some of the use cases are:
+- Cross-chain swaps
+- Multi-chain governance
+- Cross-chain lending
+- Cross-chain yield farming
