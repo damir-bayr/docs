@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "deBridge Home",
   "colors": {
     "primary": "#16A34A",
     "light": "#07C983",
@@ -34,6 +34,23 @@
         "tab": "Products",
         "groups": [
           {
+            "group": "deBridge Messaging Protocol",
+            "pages": [
+              "dmp/overview",
+              "dmp/architecture",
+              "dmp/faq"
+            ]
+          },
+          {
+            "group": "deBridge Liquidity Network",
+            "pages": [
+              "dln/overview",
+              "dln/architecture",
+              "dln/integration-guidelines",
+              "dln/faq"
+            ]
+          },
+          {
             "group": "IAAS",
             "pages": [
               "iaas/getting-started"
@@ -52,19 +69,19 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://docs.debridge.finance/",
-          "icon": "book-open-cover"
+          "anchor": "deBridge Home",
+          "href": "https://acme-68677d63.mintlify.app/",
+          "icon": "house"
         },
         {
           "anchor": "deBridge Messaging Protocol",
           "href": "https://acme-fc8786fa.mintlify.app/",
-          "icon": "book-open-cover"
+          "icon": "envelope"
         },
         {
           "anchor": "deBridge Liquidity Network",
           "href": "https://acme-1c46979f.mintlify.app/",
-          "icon": "book-open-cover"
+          "icon": "envelope-open-dollar"
         },
         {
           "anchor": "Community",
