@@ -84,6 +84,11 @@
           "icon": "envelope-open-dollar"
         },
         {
+          "anchor": "Gasless DLN",
+          "href": "https://acme-ad8c06cd.mintlify.app/overview/executive-summary",
+          "icon": "gas-pump-slash"
+        },
+        {
           "anchor": "Community",
           "href": "https://mintlify.com/community",
           "icon": "discord"
