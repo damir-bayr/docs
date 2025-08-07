@@ -1,23 +1,80 @@
 ---
 title: "Welcome"
 ---
+# Welcome to deBridge
 
-Enim ad incididunt labore proident eu eiusmod. Enim occaecat culpa aliqua aliqua sit. Ex nostrud incididunt sit pariatur in. In labore occaecat proident incididunt. Lorem incididunt ipsum enim excepteur enim occaecat minim sint duis adipisicing. Occaecat quis culpa ut eu reprehenderit pariatur incididunt amet occaecat incididunt officia nulla qui. Amet consectetur quis incididunt ad cupidatat qui voluptate magna laboris.
+Build once—interoperate everywhere. deBridge is a modular liquidity, messaging, bridging & interoperability layer that lets you move value and
+arbitrary data across more than 30 blockchains with the security, speed, and capital‑efficiency your users expect.
 
-Id est deserunt officia elit elit excepteur deserunt deserunt sit duis eu eu. Cupidatat aliqua labore enim cupidatat non deserunt labore dolor est elit consequat. Est consectetur magna anim labore deserunt. Velit anim cupidatat ipsum proident id aliquip pariatur cupidatat cupidatat. Consectetur incididunt do occaecat id in in consequat duis amet deserunt culpa sunt irure. Exercitation non commodo occaecat velit incididunt laboris incididunt consequat enim tempor aliqua deserunt mollit ipsum.
+## At a Glance
 
-Amet laboris voluptate consectetur aute nisi. Ad culpa anim officia irure magna. Irure aute ea consectetur ea proident nulla ipsum qui aute commodo dolor pariatur dolore. Nulla proident aliqua occaecat esse consectetur occaecat. Amet minim cillum consequat elit occaecat cillum consectetur sint esse. Do ad sunt consectetur amet labore labore.
+- IaaS (Interoperability‑as‑a‑Service) – turnkey subscription that equips any EVM or SVM chain with deBridge Messaging, DLN liquidity exchange, and dePort asset custody out‑of‑the‑box.
+- DLN Liquidity Network – on‑demand, single‑transaction swaps and transfers that unlock native liquidity on any supported chain without locking assets in bridges.
+- dePort – native lock‑and‑mint bridging for tokens that need canonical representation (deAssets) across chains. Ideal for protocols that want to extend token utility to new ecosystems while preserving 1:1 collateralization.
+- deBridge Messaging – generalized cross‑chain calls so your smart contracts can invoke functions, mint NFTs, or trigger any business logic on a remote chain.
+- Hooks Framework – programmable settlement callbacks that let you build automated trading, vault rebalancing, and other custom workflows directly into the bridge path.
 
-Voluptate laborum laborum dolor sint duis laboris sit commodo fugiat aliquip voluptate tempor. Lorem amet eiusmod aute elit nisi culpa ullamco sint laboris mollit velit sunt. Tempor amet commodo eiusmod esse sunt minim excepteur cillum consectetur Lorem fugiat voluptate.
+Each component can be adopted individually or combined into a full cross‑chain stack that scales from simple token transfers to complex, multi‑chain dApps.
 
-Exercitation labore nulla minim dolor deserunt mollit mollit. Adipisicing consectetur ea enim consectetur in eu ea ea cupidatat voluptate aute velit excepteur ad. Aliquip veniam eu cillum pariatur. Culpa voluptate id dolor consectetur veniam Lorem ea quis.
+## Why Integrate deBridge?
 
-Ea veniam adipisicing magna dolore laborum anim mollit Lorem. Dolore magna commodo ipsum cillum do ullamco excepteur ad velit. Veniam adipisicing sit amet incididunt incididunt cillum enim in sint. Laborum occaecat pariatur fugiat consequat minim excepteur mollit consequat esse. Nostrud non aliqua fugiat dolore.
+**Plug‑and‑play chain onboarding.** IaaS makes any new blockchain fully interoperable through a single on‑chain subscription, attracting liquidity, users, and developers from day one.
 
-Nulla ea qui anim irure. Laborum quis laborum magna ad ut velit dolore labore duis veniam elit ut exercitation cupidatat. Reprehenderit enim consectetur dolor culpa et consectetur ut minim ut. Nulla magna dolore laboris nisi anim irure. Cillum pariatur dolore aute fugiat velit ex deserunt occaecat amet ullamco qui.
+**Capital‑efficient.** DLN uses just‑in‑time liquidity from market‑makers, eliminating the idle TVL and systemic risk of pooled bridges.
 
-Ex sit exercitation officia veniam minim elit magna veniam Lorem quis do. Sunt do tempor tempor anim. Pariatur in cupidatat fugiat sint duis minim occaecat irure deserunt.
+**Canonical & composable.** dePort guarantees every wrapped deAsset is backed 1:1 by collateral locked on the origin chain, delivering predictable liquidity and seamless composability.
 
-Lorem qui id proident fugiat quis cillum id do ex enim excepteur. Consectetur sunt aliqua est mollit aliqua sunt eiusmod dolor. Pariatur Lorem sunt officia veniam non laborum.
+**Developer‑centric.** TypeScript SDKs, REST/gRPC APIs, GraphQL subgraphs, and ready‑made React widgets help you ship in hours—not weeks.
 
-Laboris magna fugiat cupidatat non ex exercitation irure anim duis esse nisi exercitation aliquip eiusmod. Cillum culpa consectetur anim aliqua magna id nostrud sit officia commodo. Reprehenderit ut elit ut aliquip irure tempor.
+**Battle‑tested security.** A decentralized validator set with delegated staking and on‑chain slashing backs every transaction. Security reviews by Halborn, Ackee, Zokyo, and others are publicly available.
+
+**Universal coverage.** Support for EVM chains, Solana, Cosmos SDK networks, and emerging L2s means you reach users wherever they are.
+
+## Core Building Blocks
+
+### IaaS (Interoperability‑as‑a‑Service)
+
+- One subscription deploys messaging, custody, and liquidity bridging to your chain
+- Monthly or quarterly on‑chain payments; no hidden fees
+- Chains gain immediate access to DLN market makers, dePort custody, and cross-chain messaging
+
+### DLN Liquidity Network
+
+- Spot swaps & cross‑chain payments in a single transaction
+- Partial fills and RFQ pricing for best execution
+- Settlement finality in seconds
+- Integrate in minutes with deBridge widget
+
+### dePort
+
+- Lock‑and‑mint bridging model with 1:1 collateralization
+- Automatic listing: first transfer deploys deAsset with metadata signed by validators
+- Route deAssets between secondary chains without passing through the native chain
+
+### deBridge Messaging
+
+- Pass any ABI‑encoded payload between chains
+- Execute multiple contract calls atomically
+- Built‑in replay protection and fee abstraction
+
+### deBridge Hooks
+
+- Trustless callbacks at the moment of settlement
+- Write hooks in Solidity or Rust and compose like Lego bricks
+
+
+## Security & Audits
+
+Security is non‑negotiable. Explore our validator design, slashing mechanics, and audit reports in Security.
+
+## Supported Chains & Fees
+
+A live list of networks, tokens, and fee schedules is maintained in Fees & Supported Chains.
+
+## Next Steps
+
+- Read the Protocol Overview for a deep dive into architecture.
+- Explore IaaS Getting Started to plug an entire chain into deBridge, or dePort Getting Started / DLN Quick Start to move your first tokens.
+- Join our Discord to get integration support from the engineering team.
+
+Ready to go cross‑chain? Dive in.

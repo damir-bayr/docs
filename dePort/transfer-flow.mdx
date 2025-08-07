@@ -1,23 +1,59 @@
 ---
 title: "Transfer Flow"
+mode: "wide"
 ---
 
-Proident culpa sint dolor excepteur sunt amet in sunt mollit eu anim. Anim occaecat elit proident esse elit reprehenderit enim eu ipsum magna sint ea eu aute. Est culpa officia Lorem sint dolor nulla eu. Elit occaecat qui ad labore officia est. Enim do ut eiusmod sint non do ipsum enim nostrud id cupidatat veniam.
+![DePort Transfers Flow](/images/deport-transfer-flow.avif)
 
-Occaecat eiusmod esse nostrud exercitation nulla consectetur enim aliquip id. Enim est ad ex ipsum irure tempor eiusmod aliquip ex ut. Minim in excepteur commodo qui qui ut aute ullamco est ad. Deserunt nisi in tempor occaecat exercitation minim laborum non officia minim. Nostrud Lorem exercitation et cupidatat.
+# Transfers From Native (Source) Chain
 
-Non nostrud reprehenderit excepteur ullamco enim veniam pariatur et deserunt deserunt sit. Sit duis et consequat duis culpa amet et non qui magna excepteur laborum sit. Ipsum id labore nisi duis eu pariatur Lorem consequat anim sint duis nulla. Occaecat aliquip incididunt elit et et aliquip exercitation ut Lorem cupidatat mollit. Excepteur ullamco Lorem proident non velit duis aliquip mollit nulla anim reprehenderit labore pariatur anim. Labore tempor pariatur laborum elit duis aute sint.
+Let's consider the situation where the user or smart contracts performs a transfer of the asset and data from chain A to chain B. Then the following steps are performed:
+- If the transferred asset isn't the base blockchain asset (i.e ETH or BNB) the approved method is called or the permit is signed. Then the `send`
+  method of the `DebridgeGate` contract is invoked. The transferred amount of the asset is locked in the smart contract or burnt (for deAssets in
+  secondary chains). The % component of the protocol's fee is deducted from the amount and transferred to the treasury, fix component of the fee is
+  paid by the user in the base chain asset and also transferred to the treasury.
+- `DebridgeGate` smart contract calculates the unique hash of cross-chain transaction based on the set of unique parameters:
 
-Velit excepteur laborum magna proident sunt nostrud non. Do et reprehenderit nulla Lorem ex nisi laborum tempor. Enim consequat nisi cupidatat minim irure sunt veniam ex dolor labore aute labore aute occaecat. Et nostrud Lorem enim Lorem incididunt reprehenderit commodo.
+```solidity
+ _debridgeID =  keccak256(abi.encodePacked(_chainId, _tokenAddress));
+ 
+ bytes memory packedSubmission = abi.encodePacked(
+            SUBMISSION_PREFIX,
+            _debridgeId,
+            getChainId(),
+            _chainIdTo,
+            _amount,
+            _receiver,
+            nonce
+        );
+        
+submissionId = keccak256(
+                abi.encodePacked(
+                    packedSubmission,
+                    autoParams.executionFee,
+                    autoParams.flags,
+                    keccak256(autoParams.fallbackAddress),
+                    isHashedData ? autoParams.data : abi.encodePacked(keccak256(autoParams.data)),
+                    keccak256(abi.encodePacked(msg.sender))
+                )
+);
+```
 
-Minim minim incididunt cupidatat cupidatat cupidatat consectetur qui anim aliqua quis anim deserunt ullamco. Proident quis sit consectetur commodo. In cillum duis sint commodo cillum sint culpa velit qui excepteur.
+`debridgeID` is a hash of concatenation of the token native chain Id and native token address.
+- deBridge validation nodes track events emitted by `deBridgeGate` smart contract and after a minimum number of blocks confirmations validators submit
+  the transfer identifier (`submissionId`) to the `deBridgeAggregator` contract on the target chain. `submissionId` is calculated as a hash of
+  concatenation:
+- The user or any arbitrary wallet (e.g. Keeper service) can call `claim` method of `deBridgeGate` by passing all transaction parameters and all
+  validators' signatures. Smart contract will restore `submissionId` based on the set of passed parameters and if the minimum required number of
+  validators' signatures is valid, the transaction is treated by the protocol as valid and the asset is minted/unlocked to the receiver address and
+  data is executed through the callProxy.
 
-Sit nisi laborum qui consectetur nisi. Commodo et sint laboris labore sit amet adipisicing nulla. Mollit culpa irure pariatur deserunt reprehenderit ipsum cillum id. Ex voluptate quis occaecat ullamco in eiusmod excepteur quis esse velit.
+deBridge protocol supports multi-chain routing when users can transfer deAssets between secondary chains directly, without the need to route them through the native chain. These transfers work in the same way, but deAsset is burnt in the chain where the transfer is originated and the corresponding amount of deAsset is minted on the target chain.
 
-Ullamco labore elit enim cupidatat. Consequat id enim labore et aliqua. Esse ex velit ad veniam dolore fugiat officia minim cupidatat ut magna do nulla non.
+# Cross-Chain Transfers Execution Time
+Cross-chain transfer through deBridge normally takes a few minutes and the delay is caused by two factors:
+- The finality of the transaction on the blockchain where the transfer is originated
+- Time required for claim transaction to get into the block on the destination chain
 
-Anim quis sunt consectetur est esse in eiusmod. Ex excepteur elit consequat occaecat excepteur et laborum laboris laborum exercitation nisi. Aliqua exercitation aute sint fugiat veniam. Esse adipisicing ex occaecat laborum nulla cupidatat in reprehenderit in consequat consequat. Ea reprehenderit consequat dolor ex Lorem.
-
-Deserunt proident duis ullamco qui labore veniam mollit officia Lorem id. Sit culpa amet aliqua eiusmod cupidatat nisi adipisicing adipisicing minim velit eiusmod consequat. Magna esse qui deserunt cillum dolor adipisicing proident anim fugiat laborum ad ad enim do. Irure anim reprehenderit officia voluptate. Culpa deserunt elit aliquip irure minim laboris ullamco nisi anim fugiat minim eu irure fugiat. Reprehenderit consequat sunt non ex ad pariatur minim. Proident do duis enim non pariatur ad et sunt in in cillum laborum non.
-
-Magna sit incididunt incididunt non incididunt magna adipisicing cillum. Incididunt dolor consequat mollit eiusmod veniam. In nostrud esse exercitation ad elit et fugiat esse ex culpa et commodo enim sint. Lorem magna est exercitation dolore eiusmod commodo incididunt ullamco aliquip adipisicing eu aliqua cupidatat. Excepteur consequat nostrud irure nulla Lorem nulla labore laborum. Qui ullamco non do occaecat eu cillum commodo commodo eu.
+Each blockchain has a different block generation time and requires a different number of block confirmations for ensured transaction finality, thus
+before validating the transaction validators must wait for its finality.

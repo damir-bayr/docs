@@ -17,8 +17,13 @@
             "group": "Welcome",
             "pages": [
               "home/welcome",
-              "home/why-debridge",
               "home/use-cases"
+            ]
+          },
+          {
+            "group": "Legal",
+            "pages": [
+              "overview/legal"
             ]
           },
           {
@@ -36,18 +41,13 @@
           {
             "group": "deBridge Messaging Protocol",
             "pages": [
-              "dmp/overview",
-              "dmp/architecture",
-              "dmp/faq"
+              "dmp/overview"
             ]
           },
           {
             "group": "deBridge Liquidity Network",
             "pages": [
-              "dln/overview",
-              "dln/architecture",
-              "dln/integration-guidelines",
-              "dln/faq"
+              "dln/overview"
             ]
           },
           {
