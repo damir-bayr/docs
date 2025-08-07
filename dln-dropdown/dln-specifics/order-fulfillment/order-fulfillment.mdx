@@ -1,0 +1,75 @@
+---
+title: 'Order Fulfillment'
+mode: "wide"
+---
+
+This page outlines secondary but relevant concepts related to order creation. While not central to the core flow for creating an order, 
+they are important for transparency and for understanding various fields in the create-tx API response.
+
+Order fulfillment involves three distinct steps:
+- Detecting the created order on the source chain 
+- Fulfilling the order on the destination chain 
+- Claiming the order on the source chain
+
+In total, a solver performs three transactions during the lifecycle of an order: 
+- Fulfilling the order on the destination chain
+- Sending unlock message via DMP from destination to the source chain
+- Claiming the locked order input assets on the source chain
+
+The gas fees associated with those transactions are considered operating costs and should be factored in when creating an order.
+
+```mermaid
+sequenceDiagram
+    actor Solver
+    participant DlnSource
+    participant SimulateService
+    participant DlnDestination
+    participant SwapService
+    participant DMP
+    actor Beneficiary
+    Beneficiary ->> DlnSource : CreateOrder()
+    rect rgba(240, 240, 240, .15)
+    note right of Solver: Simulate Order 
+    DlnSource ->> Solver : CreatedOrder(orderId)
+    Solver ->> SimulateService : simulateOrder(orderId)
+    activate SimulateService
+    SimulateService -->> Solver : simulationResult
+    deactivate SimulateService
+    end 
+    alt not simulationResult.profitable
+        note right of Solver: Order Ignored
+    else simulationResult.profitable
+        rect rgba(240, 240, 240, .15)
+            note right of Solver: Fulfil Order (Destination Chain)
+            Solver ->> DlnDestination : fulfillOrder(...) with reserve assets
+            activate DlnDestination
+            alt reserveAssetsWanted == false
+                note right of DlnDestination: Pre-Fill Swap
+                DlnDestination ->> SwapService : swapReserveToWanted()
+                activate SwapService
+                SwapService -->> DlnDestination : wantedAssets
+                deactivate SwapService
+            else
+                note right of DlnDestination: No swap needed
+            end
+            DlnDestination ->> Beneficiary : transferWantedAssets(amount)
+            DlnDestination -->> Solver     : fulfilReceipt
+            deactivate DlnDestination
+        end
+        rect rgba(240, 240, 240, .15)
+          note right of Solver: Send Unlock
+          Solver ->> DMP : sendCrossChainMessage(orderId)
+          activate DMP
+          DMP -->> Solver : ack
+          DMP ->> DlnSource : unlockOrder
+          deactivate DMP
+        end
+        rect rgba(230, 230, 255, .15)
+            note right of Solver: Claim Input Assets
+            Solver     ->> DlnSource : claimOrder(...)
+            activate DlnSource
+            DlnSource -->> Solver     : claimReceipt
+            deactivate DlnSource
+        end
+    end
+```

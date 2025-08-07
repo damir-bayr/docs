@@ -167,6 +167,144 @@
             ]
           }
         ]
+      },
+      {
+        "dropdown": "DLN",
+        "icon": "bridge",
+        "tabs": [
+          {
+            "tab": "deBridge Liquidity Network",
+            "groups": [
+              {
+                "group": "Overview",
+                "pages": [
+                  "dln-dropdown/overview/introduction",
+                  "dln-dropdown/overview/protocol-overview",
+                  "dln-dropdown/overview/use-cases",
+                  "dln-dropdown/overview/deBridge-hooks",
+                  "dln-dropdown/overview/fees-supported-chains",
+                  "dln-dropdown/overview/fee-structure",
+                  "dln-dropdown/overview/deployed-contracts",
+                  "dln-dropdown/overview/market-and-limit-orders"
+                ]
+              },
+              {
+                "group": "Legal",
+                "pages": [
+                  "dln-dropdown/overview/legal"
+                ]
+              },
+              {
+                "group": "Protocol Specs",
+                "pages": [
+                  "dln-dropdown/protocol-specs/deterministic-order-id",
+                  "dln-dropdown/protocol-specs/hook-data",
+                  "dln-dropdown/protocol-specs/evm-chains-hook-anatomy",
+                  "dln-dropdown/protocol-specs/solana-hook-anatomy"
+                ]
+              },
+              {
+                "group": "DLN Specifics",
+                "pages": [
+                  "dln-dropdown/dln-specifics/reserve-assets",
+                  "dln-dropdown/dln-specifics/bridging-reserve-assets",
+                  "dln-dropdown/dln-specifics/bridging-non-reserve-assets"
+                ]
+              },
+              {
+                "group": "Order Fulfillment",
+                "pages": [
+                  "dln-dropdown/dln-specifics/order-fulfillment/order-fulfillment",
+                  "dln-dropdown/dln-specifics/order-fulfillment/detecting-order",
+                  "dln-dropdown/dln-specifics/order-fulfillment/fulfilling-order",
+                  "dln-dropdown/dln-specifics/order-fulfillment/pre-fill-swap",
+                  "dln-dropdown/dln-specifics/order-fulfillment/claiming-order"
+                ]
+              },
+              {
+                "group": "Affiliates",
+                "pages": [
+                  "dln-dropdown/affiliates/referrers",
+                  "dln-dropdown/affiliates/integrators"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "API Integration Guides",
+            "groups": [
+              {
+                "group": "API Integration Guidelines",
+                "pages": [
+                  "dln-dropdown/integration-guidelines/api/authentication",
+                  "dln-dropdown/integration-guidelines/api/creating-order/creating-order",
+                  "dln-dropdown/integration-guidelines/api/creating-order/quick-start",
+                  "dln-dropdown/integration-guidelines/api/creating-order/api-parameters/api-parameters",
+                  "dln-dropdown/integration-guidelines/api/creating-order/api-parameters/response",
+                  "dln-dropdown/integration-guidelines/api/creating-order/api-parameters/response-example",
+                  "dln-dropdown/integration-guidelines/api/submitting-the-transaction",
+                  "dln-dropdown/integration-guidelines/api/cancelling-order",
+                  "dln-dropdown/integration-guidelines/api/creating-order/quoting-strategies",
+                  "dln-dropdown/integration-guidelines/api/creating-order/refreshing-estimates"
+                ]
+              },
+              {
+                "group": "Monitoring Orders",
+                "pages": [
+                  "dln-dropdown/integration-guidelines/api/monitoring-orders/rest",
+                  "dln-dropdown/integration-guidelines/api/monitoring-orders/order-states"
+                ]
+              },
+              {
+                "group": "Hooks",
+                "pages": [
+                  "dln-dropdown/integration-guidelines/api/hooks/integrating-hooks",
+                  "dln-dropdown/integration-guidelines/api/hooks/solana-hook-data"
+                ]
+              },
+              {
+                "group": "Affiliates",
+                "pages": [
+                  "dln-dropdown/affiliates/affiliate-fees",
+                  "dln-dropdown/affiliates/withdrawing-affiliate-fees"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "API Reference",
+            "openapi": "dln-dropdown/swagger/create-tx.json"
+          },
+          {
+            "tab": "Monitoring API",
+            "openapi": "dln-dropdown//swagger/monitoring.json"
+          },
+          {
+            "tab": "Other Ways to Integrate",
+            "groups": [
+              {
+                "group": "Widget",
+                "pages": [
+                  "dln-dropdown/widget/deBridge-widget"
+                ]
+              },
+              {
+                "group": "App",
+                "pages": [
+                  "dln-dropdown/widget/app"
+                ]
+              },
+              {
+                "group": "Smart Contract Integration",
+                "pages": [
+                  "dln-dropdown/integration-guidelines/smart-contracts/introduction",
+                  "dln-dropdown/integration-guidelines/smart-contracts/placing-orders",
+                  "dln-dropdown/integration-guidelines/smart-contracts/filling-orders"
+                ]
+              }
+            ]
+          }
+        ]
       }
     ]
   },

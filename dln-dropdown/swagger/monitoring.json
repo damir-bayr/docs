@@ -1,0 +1,4151 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "DLN stats API",
+    "description": "# Introduction\nThis API is part of [deBridge](https://debridge.finance/) protocol infrastructure. \n\nProtocol documentation is available [here](https://docs.debridge.finance/).\n\n[Terms and Condition](https://debridge.finance/assets/files/debridge_terms_of_service.pdf) | [Privacy Policy](https://debridge.finance/assets/files/debridge_privacy_policy.pdf)\n\n# Swagger\nSwagger document can be found [here](/swagger)\n\nRedoc document can be found [here](/redoc)\n",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://dln-api.debridge.finance"
+    }
+  ],
+  "paths": {
+    "/api/AnnouncementBanner/getBannerByDomain": {
+      "get": {
+        "tags": [
+          "AnnouncementBanner"
+        ],
+        "summary": "Get banner by domain",
+        "operationId": "AnnouncementBanner_GetBannerByDomain",
+        "parameters": [
+          {
+            "name": "domain",
+            "in": "query",
+            "description": "domain, that the banner should be used at",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnnouncementBannerDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/OrderEvents/solanaDepositsAndWithdrawals": {
+      "get": {
+        "tags": [
+          "OrderEvents"
+        ],
+        "summary": "Returns information about Solana transactions in a given block range",
+        "operationId": "OrderEvents_GetSolanaDepositsAndWithdrawals",
+        "parameters": [
+          {
+            "name": "fromBlock",
+            "in": "query",
+            "description": "first block to get events from",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "toBlock",
+            "in": "query",
+            "description": "last block to get events from",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SolanaCreateOrderEventDTO"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Orders/filteredList": {
+      "post": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Get filtered list of orders (ordered by block timestamp desc) max page size: 100",
+        "operationId": "Orders_GetOrders",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrdersRequestDTO"
+              },
+              "example": {
+                "giveChainIds": [
+                  1,
+                  137,
+                  250
+                ],
+                "takeChainIds": [
+                  56
+                ],
+                "orderStates": [
+                  "Created",
+                  "Fulfilled"
+                ],
+                "externalCallStates": [
+                  "NoExtCall"
+                ],
+                "filter": "",
+                "skip": 0,
+                "take": 1,
+                "blockTimestampFrom": null,
+                "blockTimestampTo": null,
+                "fulfiller": null,
+                "unlockAuthorities": null,
+                "maker": null,
+                "creator": null,
+                "referralCode": null,
+                "orderAuthorityInSourceChain": null,
+                "orderAuthorityInDestinationChain": null,
+                "orderTradeType": null
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrdersRequestDTO"
+              },
+              "example": {
+                "giveChainIds": [
+                  1,
+                  137,
+                  250
+                ],
+                "takeChainIds": [
+                  56
+                ],
+                "orderStates": [
+                  "Created",
+                  "Fulfilled"
+                ],
+                "externalCallStates": [
+                  "NoExtCall"
+                ],
+                "filter": "",
+                "skip": 0,
+                "take": 1,
+                "blockTimestampFrom": null,
+                "blockTimestampTo": null,
+                "fulfiller": null,
+                "unlockAuthorities": null,
+                "maker": null,
+                "creator": null,
+                "referralCode": null,
+                "orderAuthorityInSourceChain": null,
+                "orderAuthorityInDestinationChain": null,
+                "orderTradeType": null
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrdersRequestDTO"
+              },
+              "example": {
+                "giveChainIds": [
+                  1,
+                  137,
+                  250
+                ],
+                "takeChainIds": [
+                  56
+                ],
+                "orderStates": [
+                  "Created",
+                  "Fulfilled"
+                ],
+                "externalCallStates": [
+                  "NoExtCall"
+                ],
+                "filter": "",
+                "skip": 0,
+                "take": 1,
+                "blockTimestampFrom": null,
+                "blockTimestampTo": null,
+                "fulfiller": null,
+                "unlockAuthorities": null,
+                "maker": null,
+                "creator": null,
+                "referralCode": null,
+                "orderAuthorityInSourceChain": null,
+                "orderAuthorityInDestinationChain": null,
+                "orderTradeType": null
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrdersRequestDTO"
+              },
+              "example": {
+                "giveChainIds": [
+                  1,
+                  137,
+                  250
+                ],
+                "takeChainIds": [
+                  56
+                ],
+                "orderStates": [
+                  "Created",
+                  "Fulfilled"
+                ],
+                "externalCallStates": [
+                  "NoExtCall"
+                ],
+                "filter": "",
+                "skip": 0,
+                "take": 1,
+                "blockTimestampFrom": null,
+                "blockTimestampTo": null,
+                "fulfiller": null,
+                "unlockAuthorities": null,
+                "maker": null,
+                "creator": null,
+                "referralCode": null,
+                "orderAuthorityInSourceChain": null,
+                "orderAuthorityInDestinationChain": null,
+                "orderTradeType": null
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdersResponseDTO"
+                },
+                "example": {
+                  "orders": [
+                    {
+                      "orderId": {
+                        "bytesValue": "5gxoIxGl8VoIvYamFYEDRf7jdnL7+tgO9i6xKHjp6AI=",
+                        "bytesArrayValue": "[230,12,104,35,17,165,241,90,8,189,134,166,21,129,3,69,254,227,118,114,251,250,216,14,246,46,177,40,120,233,232,2]",
+                        "stringValue": "0xe60c682311a5f15a08bd86a615810345fee37672fbfad80ef62eb12878e9e802"
+                      },
+                      "creationTimestamp": 1751550647,
+                      "giveOfferWithMetadata": {
+                        "chainId": {
+                          "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=",
+                          "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1]",
+                          "bigIntegerValue": 1,
+                          "stringValue": "1"
+                        },
+                        "tokenAddress": {
+                          "Base64Value": "AAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+                          "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]",
+                          "stringValue": "0x0000000000000000000000000000000000000000"
+                        },
+                        "amount": {
+                          "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACFLGitZ9AAA=",
+                          "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,82,198,138,214,125,0,0]",
+                          "bigIntegerValue": 599760000000000000,
+                          "stringValue": "599760000000000000"
+                        },
+                        "finalAmount": {
+                          "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACFLGitZ9AAA=",
+                          "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,82,198,138,214,125,0,0]",
+                          "bigIntegerValue": 599760000000000000,
+                          "stringValue": "599760000000000000"
+                        },
+                        "metadata": {
+                          "decimals": 18,
+                          "name": "Ethereum",
+                          "symbol": "ETH",
+                          "logoURI": "https://tokens.debridge.finance/Logo/1/0x0000000000000000000000000000000000000000/big/token-logo.svg"
+                        },
+                        "decimals": 18,
+                        "name": "Ethereum",
+                        "symbol": "ETH",
+                        "logoURI": "https://tokens.debridge.finance/Logo/1/0x0000000000000000000000000000000000000000/big/token-logo.svg"
+                      },
+                      "takeOfferWithMetadata": {
+                        "chainId": {
+                          "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADg=",
+                          "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56]",
+                          "bigIntegerValue": 56,
+                          "stringValue": "56"
+                        },
+                        "tokenAddress": {
+                          "Base64Value": "AAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+                          "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]",
+                          "stringValue": "0x0000000000000000000000000000000000000000"
+                        },
+                        "amount": {
+                          "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAILNZgksqoys=",
+                          "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,179,89,130,75,42,163,43]",
+                          "bigIntegerValue": 2356325446186607403,
+                          "stringValue": "2356325446186607403"
+                        },
+                        "finalAmount": {
+                          "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAILNZgksqoys=",
+                          "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,179,89,130,75,42,163,43]",
+                          "bigIntegerValue": 2356325446186607403,
+                          "stringValue": "2356325446186607403"
+                        },
+                        "metadata": {
+                          "decimals": 18,
+                          "name": "BNB",
+                          "symbol": "BNB",
+                          "logoURI": "https://tokens.debridge.finance/Logo/56/0x0000000000000000000000000000000000000000/big/token-logo.svg"
+                        },
+                        "decimals": 18,
+                        "name": "BNB",
+                        "symbol": "BNB",
+                        "logoURI": "https://tokens.debridge.finance/Logo/56/0x0000000000000000000000000000000000000000/big/token-logo.svg"
+                      },
+                      "state": "Fulfilled",
+                      "externalCallState": "NoExtCall",
+                      "finalPercentFee": {
+                        "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADaR1q/AAA=",
+                        "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,218,71,90,191,0,0]",
+                        "bigIntegerValue": 240000000000000,
+                        "stringValue": "240000000000000"
+                      },
+                      "fixFee": {
+                        "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAONfqTGgAA=",
+                        "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,141,126,164,198,128,0]",
+                        "bigIntegerValue": 1000000000000000,
+                        "stringValue": "1000000000000000"
+                      },
+                      "affiliateFee": {
+                        "beneficiarySrc": {
+                          "Base64Value": null,
+                          "bytesArrayValue": "",
+                          "stringValue": null
+                        },
+                        "amount": {
+                          "bytesValue": null,
+                          "bytesArrayValue": null,
+                          "bigIntegerValue": null,
+                          "stringValue": null
+                        }
+                      },
+                      "unlockAuthorityDst": {
+                        "Base64Value": "VVziNsAiBpW2g0G8SMaNUiEMw1s=",
+                        "bytesArrayValue": "[85,92,226,54,192,34,6,149,182,131,65,188,72,198,141,82,33,12,195,91]",
+                        "stringValue": "0x555ce236c0220695b68341bc48c68d52210cc35b"
+                      },
+                      "createEventTransactionHash": {
+                        "bytesValue": "PsJoVGGFOdfGHam6LOb1XGkvO7tBycCtRjShRrO8OAs=",
+                        "bytesArrayValue": "[62,194,104,84,97,133,57,215,198,29,169,186,44,230,245,92,105,47,59,187,65,201,192,173,70,52,161,70,179,188,56,11]",
+                        "stringValue": "0x3ec26854618539d7c61da9ba2ce6f55c692f3bbb41c9c0ad4634a146b3bc380b"
+                      },
+                      "preswapData": null,
+                      "orderMetadata": {
+                        "version": 1,
+                        "creationProcessType": "SrcAmountSet",
+                        "origin": "Default",
+                        "additionalTakerIncentiveBps": 0,
+                        "operatingExpensesAmount": "481160746655724",
+                        "recommendedTakeAmount": "2356325446186607403",
+                        "metadata": "0x0000000000000000000000000000000000000000",
+                        "promotionType": "None",
+                        "orderTradeType": "Market"
+                      }
+                    }
+                  ],
+                  "totalCount": 189
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Orders/{orderId}": {
+      "get": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Get order by events by orderId",
+        "operationId": "Orders_GetOrder",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "Id of an order to return the data for",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDTO"
+                },
+                "example": {
+                  "orderId": {
+                    "bytesValue": "AA4r8JSgZRie2pvbP0vsvMKR1Rz9uWFc2cC+A9msUVI=",
+                    "bytesArrayValue": "[0,14,43,240,148,160,101,24,158,218,155,219,63,75,236,188,194,145,213,28,253,185,97,92,217,192,190,3,217,172,81,82]",
+                    "stringValue": "0x000e2bf094a065189eda9bdb3f4becbcc291d51cfdb9615cd9c0be03d9ac5152"
+                  },
+                  "makerOrderNonce": 40,
+                  "makerSrc": {
+                    "Base64Value": "Zj3BXTwaxj/xLkWraP6j8KiDwlE=",
+                    "bytesArrayValue": "[102,61,193,93,60,26,198,63,241,46,69,171,104,254,163,240,168,131,194,81]",
+                    "stringValue": "0x663dc15d3c1ac63ff12e45ab68fea3f0a883c251"
+                  },
+                  "giveOfferWithMetadata": {
+                    "chainId": {
+                      "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIk=",
+                      "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,137]",
+                      "bigIntegerValue": 137,
+                      "stringValue": "137"
+                    },
+                    "tokenAddress": {
+                      "Base64Value": "J5G8ofLeRmHtiKMMmaepRJqoQXQ=",
+                      "bytesArrayValue": "[39,145,188,161,242,222,70,97,237,136,163,12,153,167,169,68,154,168,65,116]",
+                      "stringValue": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174"
+                    },
+                    "amount": {
+                      "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKNSk=",
+                      "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,53,41]",
+                      "bigIntegerValue": 668969,
+                      "stringValue": "668969"
+                    },
+                    "finalAmount": {
+                      "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKNSk=",
+                      "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,53,41]",
+                      "bigIntegerValue": 668969,
+                      "stringValue": "668969"
+                    },
+                    "metadata": {
+                      "decimals": 6,
+                      "name": "USD Coin (PoS)",
+                      "symbol": "USDC",
+                      "logoURI": "https://tokens.debridge.finance/Logo/137/0x2791bca1f2de4661ed88a30c99a7a9449aa84174/big/token-logo.png"
+                    },
+                    "decimals": 6,
+                    "name": "USD Coin (PoS)",
+                    "symbol": "USDC",
+                    "logoURI": "https://tokens.debridge.finance/Logo/137/0x2791bca1f2de4661ed88a30c99a7a9449aa84174/big/token-logo.png"
+                  },
+                  "receiverDst": {
+                    "Base64Value": "sh3+oBDpOfS7DwyzYTUphKjGrA0=",
+                    "bytesArrayValue": "[178,29,254,160,16,233,57,244,187,15,12,179,97,53,41,132,168,198,172,13]",
+                    "stringValue": "0xb21dfea010e939f4bb0f0cb361352984a8c6ac0d"
+                  },
+                  "takeOfferWithMetadata": {
+                    "chainId": {
+                      "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAqGo=",
+                      "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,168,106]",
+                      "bigIntegerValue": 43114,
+                      "stringValue": "43114"
+                    },
+                    "tokenAddress": {
+                      "Base64Value": "AAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+                      "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]",
+                      "stringValue": "0x0000000000000000000000000000000000000000"
+                    },
+                    "amount": {
+                      "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABD7YnoGwAA=",
+                      "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,251,98,122,6,192,0]",
+                      "bigIntegerValue": 4780000000000000,
+                      "stringValue": "4780000000000000"
+                    },
+                    "finalAmount": {
+                      "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABD7YnoGwAA=",
+                      "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,251,98,122,6,192,0]",
+                      "bigIntegerValue": 4780000000000000,
+                      "stringValue": "4780000000000000"
+                    },
+                    "metadata": {
+                      "decimals": 18,
+                      "name": "Avalanche",
+                      "symbol": "AVAX",
+                      "logoURI": "https://tokens.debridge.finance/Logo/43114/0x0000000000000000000000000000000000000000/big/token-logo.svg"
+                    },
+                    "decimals": 18,
+                    "name": "Avalanche",
+                    "symbol": "AVAX",
+                    "logoURI": "https://tokens.debridge.finance/Logo/43114/0x0000000000000000000000000000000000000000/big/token-logo.svg"
+                  },
+                  "givePatchAuthoritySrc": {
+                    "Base64Value": "sh3+oBDpOfS7DwyzYTUphKjGrA0=",
+                    "bytesArrayValue": "[178,29,254,160,16,233,57,244,187,15,12,179,97,53,41,132,168,198,172,13]",
+                    "stringValue": "0xb21dfea010e939f4bb0f0cb361352984a8c6ac0d"
+                  },
+                  "orderAuthorityAddressDst": {
+                    "Base64Value": "sh3+oBDpOfS7DwyzYTUphKjGrA0=",
+                    "bytesArrayValue": "[178,29,254,160,16,233,57,244,187,15,12,179,97,53,41,132,168,198,172,13]",
+                    "stringValue": "0xb21dfea010e939f4bb0f0cb361352984a8c6ac0d"
+                  },
+                  "allowedTakerDst": {
+                    "Base64Value": null,
+                    "bytesArrayValue": "",
+                    "stringValue": null
+                  },
+                  "allowedCancelBeneficiarySrc": {
+                    "Base64Value": null,
+                    "bytesArrayValue": "",
+                    "stringValue": null
+                  },
+                  "state": "Fulfilled",
+                  "externalCallState": "NoExtCall",
+                  "referralCode": 2,
+                  "percentFee": {
+                    "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQs=",
+                    "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,11]",
+                    "bigIntegerValue": 267,
+                    "stringValue": "267"
+                  },
+                  "finalPercentFee": {
+                    "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQs=",
+                    "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,11]",
+                    "bigIntegerValue": 267,
+                    "stringValue": "267"
+                  },
+                  "fixFee": {
+                    "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABvBbWdOyAAA=",
+                    "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,240,91,89,211,178,0,0]",
+                    "bigIntegerValue": 500000000000000000,
+                    "stringValue": "500000000000000000"
+                  },
+                  "unlockBeneficiarySrc": null,
+                  "cancelBeneficiarySrc": null,
+                  "taker": {
+                    "Base64Value": "wx/JTz/QiO5TrJFdbooU/yWiPEc=",
+                    "bytesArrayValue": "[195,31,201,79,63,208,136,238,83,172,145,93,110,138,20,255,37,162,60,71]",
+                    "stringValue": "0xc31fc94f3fd088ee53ac915d6e8a14ff25a23c47"
+                  },
+                  "unlockAuthorityDst": {
+                    "Base64Value": "VfYmWiZvcgKDW1ZhwdoEXzny5Yc=",
+                    "bytesArrayValue": "[85,246,38,90,38,111,114,2,131,91,86,97,193,218,4,95,57,242,229,135]",
+                    "stringValue": "0x55f6265a266f7202835b5661c1da045f39f2e587"
+                  },
+                  "affiliateFee": null,
+                  "createdSrcEventMetadata": {
+                    "transactionHash": {
+                      "bytesValue": "I8g9f1eMO1TEsQ6ITz6TmryhGEQf9zOoPmLVm0TXAmc=",
+                      "bytesArrayValue": "[35,200,61,127,87,140,59,84,196,177,14,136,79,62,147,154,188,161,24,68,31,247,51,168,62,98,213,155,68,215,2,103]",
+                      "stringValue": "0x23c83d7f578c3b54c4b10e884f3e939abca118441ff733a83e62d59b44d70267"
+                    },
+                    "blockNumber": 37867904,
+                    "blockHash": {
+                      "bytesValue": "xCNFl4qst1EIpkpfEJtBBe5C2QN0/Q20Ti1ZktZHeTM=",
+                      "bytesArrayValue": "[196,35,69,151,138,172,183,81,8,166,74,95,16,155,65,5,238,66,217,3,116,253,13,180,78,45,89,146,214,71,121,51]",
+                      "stringValue": "0xc42345978aacb75108a64a5f109b4105ee42d90374fd0db44e2d5992d6477933"
+                    },
+                    "blockTimeStamp": 1673279130,
+                    "initiator": {
+                      "Base64Value": "sh3+oBDpOfS7DwyzYTUphKjGrA0=",
+                      "bytesArrayValue": "[178,29,254,160,16,233,57,244,187,15,12,179,97,53,41,132,168,198,172,13]",
+                      "stringValue": "0xb21dfea010e939f4bb0f0cb361352984a8c6ac0d"
+                    }
+                  },
+                  "fulfilledDstEventMetadata": {
+                    "transactionHash": {
+                      "bytesValue": "SvOghv9YsNfy3GmBClK7U+/L3i6gCB8yItG4RDda9Lc=",
+                      "bytesArrayValue": "[74,243,160,134,255,88,176,215,242,220,105,129,10,82,187,83,239,203,222,46,160,8,31,50,34,209,184,68,55,90,244,183]",
+                      "stringValue": "0x4af3a086ff58b0d7f2dc69810a52bb53efcbde2ea0081f3222d1b844375af4b7"
+                    },
+                    "blockNumber": 24762199,
+                    "blockHash": {
+                      "bytesValue": "jUYlF3L7ju3hHUIbgiHFCXeu6BNo8jzb3+KAcwGZcuE=",
+                      "bytesArrayValue": "[141,70,37,23,114,251,142,237,225,29,66,27,130,33,197,9,119,174,232,19,104,242,60,219,223,226,128,115,1,153,114,225]",
+                      "stringValue": "0x8d46251772fb8eede11d421b8221c50977aee81368f23cdbdfe28073019972e1"
+                    },
+                    "blockTimeStamp": 1673359616,
+                    "initiator": {
+                      "Base64Value": "VfYmWiZvcgKDW1ZhwdoEXzny5Yc=",
+                      "bytesArrayValue": "[85,246,38,90,38,111,114,2,131,91,86,97,193,218,4,95,57,242,229,135]",
+                      "stringValue": "0x55f6265a266f7202835b5661c1da045f39f2e587"
+                    }
+                  },
+                  "sentUnlockDstEventInfo": {
+                    "transactionMetadata": null,
+                    "submissionId": {
+                      "bytesValue": null,
+                      "bytesArrayValue": null,
+                      "stringValue": null
+                    }
+                  },
+                  "claimedUnlockSrcEventInfo": {
+                    "transactionMetadata": null,
+                    "submissionId": {
+                      "bytesValue": null,
+                      "bytesArrayValue": null,
+                      "stringValue": null
+                    }
+                  },
+                  "orderCancelledDstEventMetadata": null,
+                  "sentOrderCancelDstEventInfo": {
+                    "transactionMetadata": null,
+                    "submissionId": {
+                      "bytesValue": null,
+                      "bytesArrayValue": null,
+                      "stringValue": null
+                    }
+                  },
+                  "claimedOrderCancelSrcEventInfo": {
+                    "transactionMetadata": null,
+                    "submissionId": {
+                      "bytesValue": null,
+                      "bytesArrayValue": null,
+                      "stringValue": null
+                    }
+                  },
+                  "preswapData": null,
+                  "externalCallData": null,
+                  "orderMetadata": null
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Orders/creationTxHash/{creationTxHash}": {
+      "get": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Get order by events by creation transaction hash",
+        "operationId": "Orders_GetOrderByCreationTx",
+        "parameters": [
+          {
+            "name": "creationTxHash",
+            "in": "path",
+            "description": "Id of an order to return the data for",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDTO"
+                },
+                "example": {
+                  "orderId": {
+                    "bytesValue": "AA4r8JSgZRie2pvbP0vsvMKR1Rz9uWFc2cC+A9msUVI=",
+                    "bytesArrayValue": "[0,14,43,240,148,160,101,24,158,218,155,219,63,75,236,188,194,145,213,28,253,185,97,92,217,192,190,3,217,172,81,82]",
+                    "stringValue": "0x000e2bf094a065189eda9bdb3f4becbcc291d51cfdb9615cd9c0be03d9ac5152"
+                  },
+                  "makerOrderNonce": 40,
+                  "makerSrc": {
+                    "Base64Value": "Zj3BXTwaxj/xLkWraP6j8KiDwlE=",
+                    "bytesArrayValue": "[102,61,193,93,60,26,198,63,241,46,69,171,104,254,163,240,168,131,194,81]",
+                    "stringValue": "0x663dc15d3c1ac63ff12e45ab68fea3f0a883c251"
+                  },
+                  "giveOfferWithMetadata": {
+                    "chainId": {
+                      "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIk=",
+                      "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,137]",
+                      "bigIntegerValue": 137,
+                      "stringValue": "137"
+                    },
+                    "tokenAddress": {
+                      "Base64Value": "J5G8ofLeRmHtiKMMmaepRJqoQXQ=",
+                      "bytesArrayValue": "[39,145,188,161,242,222,70,97,237,136,163,12,153,167,169,68,154,168,65,116]",
+                      "stringValue": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174"
+                    },
+                    "amount": {
+                      "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKNSk=",
+                      "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,53,41]",
+                      "bigIntegerValue": 668969,
+                      "stringValue": "668969"
+                    },
+                    "finalAmount": {
+                      "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKNSk=",
+                      "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,53,41]",
+                      "bigIntegerValue": 668969,
+                      "stringValue": "668969"
+                    },
+                    "metadata": {
+                      "decimals": 6,
+                      "name": "USD Coin (PoS)",
+                      "symbol": "USDC",
+                      "logoURI": "https://tokens.debridge.finance/Logo/137/0x2791bca1f2de4661ed88a30c99a7a9449aa84174/big/token-logo.png"
+                    },
+                    "decimals": 6,
+                    "name": "USD Coin (PoS)",
+                    "symbol": "USDC",
+                    "logoURI": "https://tokens.debridge.finance/Logo/137/0x2791bca1f2de4661ed88a30c99a7a9449aa84174/big/token-logo.png"
+                  },
+                  "receiverDst": {
+                    "Base64Value": "sh3+oBDpOfS7DwyzYTUphKjGrA0=",
+                    "bytesArrayValue": "[178,29,254,160,16,233,57,244,187,15,12,179,97,53,41,132,168,198,172,13]",
+                    "stringValue": "0xb21dfea010e939f4bb0f0cb361352984a8c6ac0d"
+                  },
+                  "takeOfferWithMetadata": {
+                    "chainId": {
+                      "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAqGo=",
+                      "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,168,106]",
+                      "bigIntegerValue": 43114,
+                      "stringValue": "43114"
+                    },
+                    "tokenAddress": {
+                      "Base64Value": "AAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+                      "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]",
+                      "stringValue": "0x0000000000000000000000000000000000000000"
+                    },
+                    "amount": {
+                      "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABD7YnoGwAA=",
+                      "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,251,98,122,6,192,0]",
+                      "bigIntegerValue": 4780000000000000,
+                      "stringValue": "4780000000000000"
+                    },
+                    "finalAmount": {
+                      "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABD7YnoGwAA=",
+                      "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,251,98,122,6,192,0]",
+                      "bigIntegerValue": 4780000000000000,
+                      "stringValue": "4780000000000000"
+                    },
+                    "metadata": {
+                      "decimals": 18,
+                      "name": "Avalanche",
+                      "symbol": "AVAX",
+                      "logoURI": "https://tokens.debridge.finance/Logo/43114/0x0000000000000000000000000000000000000000/big/token-logo.svg"
+                    },
+                    "decimals": 18,
+                    "name": "Avalanche",
+                    "symbol": "AVAX",
+                    "logoURI": "https://tokens.debridge.finance/Logo/43114/0x0000000000000000000000000000000000000000/big/token-logo.svg"
+                  },
+                  "givePatchAuthoritySrc": {
+                    "Base64Value": "sh3+oBDpOfS7DwyzYTUphKjGrA0=",
+                    "bytesArrayValue": "[178,29,254,160,16,233,57,244,187,15,12,179,97,53,41,132,168,198,172,13]",
+                    "stringValue": "0xb21dfea010e939f4bb0f0cb361352984a8c6ac0d"
+                  },
+                  "orderAuthorityAddressDst": {
+                    "Base64Value": "sh3+oBDpOfS7DwyzYTUphKjGrA0=",
+                    "bytesArrayValue": "[178,29,254,160,16,233,57,244,187,15,12,179,97,53,41,132,168,198,172,13]",
+                    "stringValue": "0xb21dfea010e939f4bb0f0cb361352984a8c6ac0d"
+                  },
+                  "allowedTakerDst": {
+                    "Base64Value": null,
+                    "bytesArrayValue": "",
+                    "stringValue": null
+                  },
+                  "allowedCancelBeneficiarySrc": {
+                    "Base64Value": null,
+                    "bytesArrayValue": "",
+                    "stringValue": null
+                  },
+                  "state": "Fulfilled",
+                  "externalCallState": "NoExtCall",
+                  "referralCode": 2,
+                  "percentFee": {
+                    "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQs=",
+                    "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,11]",
+                    "bigIntegerValue": 267,
+                    "stringValue": "267"
+                  },
+                  "finalPercentFee": {
+                    "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQs=",
+                    "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,11]",
+                    "bigIntegerValue": 267,
+                    "stringValue": "267"
+                  },
+                  "fixFee": {
+                    "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABvBbWdOyAAA=",
+                    "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,240,91,89,211,178,0,0]",
+                    "bigIntegerValue": 500000000000000000,
+                    "stringValue": "500000000000000000"
+                  },
+                  "unlockBeneficiarySrc": null,
+                  "cancelBeneficiarySrc": null,
+                  "taker": {
+                    "Base64Value": "wx/JTz/QiO5TrJFdbooU/yWiPEc=",
+                    "bytesArrayValue": "[195,31,201,79,63,208,136,238,83,172,145,93,110,138,20,255,37,162,60,71]",
+                    "stringValue": "0xc31fc94f3fd088ee53ac915d6e8a14ff25a23c47"
+                  },
+                  "unlockAuthorityDst": {
+                    "Base64Value": "VfYmWiZvcgKDW1ZhwdoEXzny5Yc=",
+                    "bytesArrayValue": "[85,246,38,90,38,111,114,2,131,91,86,97,193,218,4,95,57,242,229,135]",
+                    "stringValue": "0x55f6265a266f7202835b5661c1da045f39f2e587"
+                  },
+                  "affiliateFee": null,
+                  "createdSrcEventMetadata": {
+                    "transactionHash": {
+                      "bytesValue": "I8g9f1eMO1TEsQ6ITz6TmryhGEQf9zOoPmLVm0TXAmc=",
+                      "bytesArrayValue": "[35,200,61,127,87,140,59,84,196,177,14,136,79,62,147,154,188,161,24,68,31,247,51,168,62,98,213,155,68,215,2,103]",
+                      "stringValue": "0x23c83d7f578c3b54c4b10e884f3e939abca118441ff733a83e62d59b44d70267"
+                    },
+                    "blockNumber": 37867904,
+                    "blockHash": {
+                      "bytesValue": "xCNFl4qst1EIpkpfEJtBBe5C2QN0/Q20Ti1ZktZHeTM=",
+                      "bytesArrayValue": "[196,35,69,151,138,172,183,81,8,166,74,95,16,155,65,5,238,66,217,3,116,253,13,180,78,45,89,146,214,71,121,51]",
+                      "stringValue": "0xc42345978aacb75108a64a5f109b4105ee42d90374fd0db44e2d5992d6477933"
+                    },
+                    "blockTimeStamp": 1673279130,
+                    "initiator": {
+                      "Base64Value": "sh3+oBDpOfS7DwyzYTUphKjGrA0=",
+                      "bytesArrayValue": "[178,29,254,160,16,233,57,244,187,15,12,179,97,53,41,132,168,198,172,13]",
+                      "stringValue": "0xb21dfea010e939f4bb0f0cb361352984a8c6ac0d"
+                    }
+                  },
+                  "fulfilledDstEventMetadata": {
+                    "transactionHash": {
+                      "bytesValue": "SvOghv9YsNfy3GmBClK7U+/L3i6gCB8yItG4RDda9Lc=",
+                      "bytesArrayValue": "[74,243,160,134,255,88,176,215,242,220,105,129,10,82,187,83,239,203,222,46,160,8,31,50,34,209,184,68,55,90,244,183]",
+                      "stringValue": "0x4af3a086ff58b0d7f2dc69810a52bb53efcbde2ea0081f3222d1b844375af4b7"
+                    },
+                    "blockNumber": 24762199,
+                    "blockHash": {
+                      "bytesValue": "jUYlF3L7ju3hHUIbgiHFCXeu6BNo8jzb3+KAcwGZcuE=",
+                      "bytesArrayValue": "[141,70,37,23,114,251,142,237,225,29,66,27,130,33,197,9,119,174,232,19,104,242,60,219,223,226,128,115,1,153,114,225]",
+                      "stringValue": "0x8d46251772fb8eede11d421b8221c50977aee81368f23cdbdfe28073019972e1"
+                    },
+                    "blockTimeStamp": 1673359616,
+                    "initiator": {
+                      "Base64Value": "VfYmWiZvcgKDW1ZhwdoEXzny5Yc=",
+                      "bytesArrayValue": "[85,246,38,90,38,111,114,2,131,91,86,97,193,218,4,95,57,242,229,135]",
+                      "stringValue": "0x55f6265a266f7202835b5661c1da045f39f2e587"
+                    }
+                  },
+                  "sentUnlockDstEventInfo": {
+                    "transactionMetadata": null,
+                    "submissionId": {
+                      "bytesValue": null,
+                      "bytesArrayValue": null,
+                      "stringValue": null
+                    }
+                  },
+                  "claimedUnlockSrcEventInfo": {
+                    "transactionMetadata": null,
+                    "submissionId": {
+                      "bytesValue": null,
+                      "bytesArrayValue": null,
+                      "stringValue": null
+                    }
+                  },
+                  "orderCancelledDstEventMetadata": null,
+                  "sentOrderCancelDstEventInfo": {
+                    "transactionMetadata": null,
+                    "submissionId": {
+                      "bytesValue": null,
+                      "bytesArrayValue": null,
+                      "stringValue": null
+                    }
+                  },
+                  "claimedOrderCancelSrcEventInfo": {
+                    "transactionMetadata": null,
+                    "submissionId": {
+                      "bytesValue": null,
+                      "bytesArrayValue": null,
+                      "stringValue": null
+                    }
+                  },
+                  "preswapData": null,
+                  "externalCallData": null,
+                  "orderMetadata": null
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Orders/{orderId}/externalCallProcess": {
+      "get": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Get external call processed events by orderId",
+        "operationId": "Orders_GetExternalCallProcessedEvents",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "Id of an order to return events for",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExtcallExecutionFullProgressDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Orders/getInitiatorsPendingOrdersCount": {
+      "get": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Returns number of orders in Created or Canceling state where given user (wallet) is initiator (sender of CreateEvent's transaction)",
+        "operationId": "Orders_GetInitiatorsPendingOrdersCount",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Orders/{orderId}/state": {
+      "get": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Returns order state by order Id",
+        "operationId": "Orders_GetOrderState",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "Id of an order to return information for",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderState"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Orders/{orderId}/liteModel": {
+      "get": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Returns lite order model by order Id",
+        "operationId": "Orders_GetLiteOrderModel",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "orderId [hex]",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderLiteDTO"
+                },
+                "example": {
+                  "orderId": {
+                    "bytesValue": "AA4r8JSgZRie2pvbP0vsvMKR1Rz9uWFc2cC+A9msUVI=",
+                    "bytesArrayValue": "[0,14,43,240,148,160,101,24,158,218,155,219,63,75,236,188,194,145,213,28,253,185,97,92,217,192,190,3,217,172,81,82]",
+                    "stringValue": "0x000e2bf094a065189eda9bdb3f4becbcc291d51cfdb9615cd9c0be03d9ac5152"
+                  },
+                  "creationTimestamp": 0,
+                  "state": "Fulfilled",
+                  "externalCallState": "NoExtCall",
+                  "makerOrderNonce": 40,
+                  "makerSrc": {
+                    "Base64Value": "Zj3BXTwaxj/xLkWraP6j8KiDwlE=",
+                    "bytesArrayValue": "[102,61,193,93,60,26,198,63,241,46,69,171,104,254,163,240,168,131,194,81]",
+                    "stringValue": "0x663dc15d3c1ac63ff12e45ab68fea3f0a883c251"
+                  },
+                  "giveOffer": {
+                    "chainId": {
+                      "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIk=",
+                      "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,137]",
+                      "bigIntegerValue": 137,
+                      "stringValue": "137"
+                    },
+                    "tokenAddress": {
+                      "Base64Value": "J5G8ofLeRmHtiKMMmaepRJqoQXQ=",
+                      "bytesArrayValue": "[39,145,188,161,242,222,70,97,237,136,163,12,153,167,169,68,154,168,65,116]",
+                      "stringValue": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174"
+                    },
+                    "amount": {
+                      "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKNSk=",
+                      "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,53,41]",
+                      "bigIntegerValue": 668969,
+                      "stringValue": "668969"
+                    }
+                  },
+                  "receiverDst": {
+                    "Base64Value": "sh3+oBDpOfS7DwyzYTUphKjGrA0=",
+                    "bytesArrayValue": "[178,29,254,160,16,233,57,244,187,15,12,179,97,53,41,132,168,198,172,13]",
+                    "stringValue": "0xb21dfea010e939f4bb0f0cb361352984a8c6ac0d"
+                  },
+                  "takeOffer": {
+                    "chainId": {
+                      "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAqGo=",
+                      "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,168,106]",
+                      "bigIntegerValue": 43114,
+                      "stringValue": "43114"
+                    },
+                    "tokenAddress": {
+                      "Base64Value": "AAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+                      "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]",
+                      "stringValue": "0x0000000000000000000000000000000000000000"
+                    },
+                    "amount": {
+                      "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABD7YnoGwAA=",
+                      "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,251,98,122,6,192,0]",
+                      "bigIntegerValue": 4780000000000000,
+                      "stringValue": "4780000000000000"
+                    }
+                  },
+                  "givePatchAuthoritySrc": {
+                    "Base64Value": "sh3+oBDpOfS7DwyzYTUphKjGrA0=",
+                    "bytesArrayValue": "[178,29,254,160,16,233,57,244,187,15,12,179,97,53,41,132,168,198,172,13]",
+                    "stringValue": "0xb21dfea010e939f4bb0f0cb361352984a8c6ac0d"
+                  },
+                  "orderAuthorityAddressDst": {
+                    "Base64Value": "sh3+oBDpOfS7DwyzYTUphKjGrA0=",
+                    "bytesArrayValue": "[178,29,254,160,16,233,57,244,187,15,12,179,97,53,41,132,168,198,172,13]",
+                    "stringValue": "0xb21dfea010e939f4bb0f0cb361352984a8c6ac0d"
+                  },
+                  "allowedTakerDst": {
+                    "Base64Value": null,
+                    "bytesArrayValue": "",
+                    "stringValue": null
+                  },
+                  "allowedCancelBeneficiarySrc": {
+                    "Base64Value": null,
+                    "bytesArrayValue": "",
+                    "stringValue": null
+                  },
+                  "externalCallData": {
+                    "bytesValue": null,
+                    "bytesArrayValue": null,
+                    "stringValue": null
+                  },
+                  "extcallExecutionProgress": null,
+                  "rawOrderMetadataHex": null
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Orders/getForUnlockAuthorities": {
+      "post": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Returns order offers for unlock authorities",
+        "operationId": "Orders_GetOrdersInfoForUnlockAuthorities",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderGiveOfferRequestDTO"
+              },
+              "example": {
+                "giveChainIds": [
+                  1,
+                  137,
+                  250
+                ],
+                "orderStates": [
+                  "Fulfilled",
+                  "SentUnlock"
+                ],
+                "unlockAuthorities": "0x510c9d0c01d27947ad8dad65a39feb5031b689b2",
+                "skip": 0,
+                "take": 1
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderGiveOfferRequestDTO"
+              },
+              "example": {
+                "giveChainIds": [
+                  1,
+                  137,
+                  250
+                ],
+                "orderStates": [
+                  "Fulfilled",
+                  "SentUnlock"
+                ],
+                "unlockAuthorities": "0x510c9d0c01d27947ad8dad65a39feb5031b689b2",
+                "skip": 0,
+                "take": 1
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderGiveOfferRequestDTO"
+              },
+              "example": {
+                "giveChainIds": [
+                  1,
+                  137,
+                  250
+                ],
+                "orderStates": [
+                  "Fulfilled",
+                  "SentUnlock"
+                ],
+                "unlockAuthorities": "0x510c9d0c01d27947ad8dad65a39feb5031b689b2",
+                "skip": 0,
+                "take": 1
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderGiveOfferRequestDTO"
+              },
+              "example": {
+                "giveChainIds": [
+                  1,
+                  137,
+                  250
+                ],
+                "orderStates": [
+                  "Fulfilled",
+                  "SentUnlock"
+                ],
+                "unlockAuthorities": "0x510c9d0c01d27947ad8dad65a39feb5031b689b2",
+                "skip": 0,
+                "take": 1
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderGiveOfferResponseDTO"
+                },
+                "example": {
+                  "orders": [
+                    {
+                      "orderId": {
+                        "bytesValue": "0qcOs1Ad8JrlStmCRHrE8Ul4DZDsqx5GZFhq9Tajo20=",
+                        "bytesArrayValue": "[210,167,14,179,80,29,240,154,229,74,217,130,68,122,196,241,73,120,13,144,236,171,30,70,100,88,106,245,54,163,163,109]",
+                        "stringValue": "0xd2a70eb3501df09ae54ad982447ac4f149780d90ecab1e4664586af536a3a36d"
+                      },
+                      "giveTokenAddress": {
+                        "Base64Value": "J5G8ofLeRmHtiKMMmaepRJqoQXQ=",
+                        "bytesArrayValue": "[39,145,188,161,242,222,70,97,237,136,163,12,153,167,169,68,154,168,65,116]",
+                        "stringValue": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174"
+                      },
+                      "finalGiveAmount": {
+                        "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABC4aE=",
+                        "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,66,225,161]",
+                        "bigIntegerValue": 4383137,
+                        "stringValue": "4383137"
+                      }
+                    }
+                  ],
+                  "totalCount": 1
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ReferralProgram/{referralCode}/summary": {
+      "get": {
+        "tags": [
+          "ReferralProgram"
+        ],
+        "summary": "Returns referral statistics for given referral code",
+        "operationId": "ReferralProgram_GetReferralStatistics",
+        "parameters": [
+          {
+            "name": "referralCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReferralStatisticsDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ReferralProgram/{referralCode}/referredUsers": {
+      "get": {
+        "tags": [
+          "ReferralProgram"
+        ],
+        "summary": "Returns aggregated information about users, that used given referral code",
+        "operationId": "ReferralProgram_GetReferredUsers",
+        "parameters": [
+          {
+            "name": "referralCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReferredUsersResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ReferralProgram/referrerCode/{walletAddress}": {
+      "get": {
+        "tags": [
+          "ReferralProgram"
+        ],
+        "summary": "Returns referral code which user used in first DeBridge order",
+        "operationId": "ReferralProgram_GetReferrerCode",
+        "parameters": [
+          {
+            "name": "walletAddress",
+            "in": "path",
+            "description": "wallet address [hex of base58]",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Satistics/getAllTime": {
+      "get": {
+        "tags": [
+          "Satistics"
+        ],
+        "summary": "Returns orders statistics summary for all time",
+        "operationId": "Satistics_GetAllTime",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdersSatisticsDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdersSatisticsDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdersSatisticsDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Satistics/getLatestTwentyFourHours": {
+      "get": {
+        "tags": [
+          "Satistics"
+        ],
+        "summary": "Returns orders statistics summary for last 24 hours",
+        "operationId": "Satistics_GetLatestTwentyFourHours",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdersSatisticsDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdersSatisticsDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdersSatisticsDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Satistics/getDaily": {
+      "get": {
+        "tags": [
+          "Satistics"
+        ],
+        "summary": "Get daily statistics for given timespan",
+        "operationId": "Satistics_GetDailyStatistics",
+        "parameters": [
+          {
+            "name": "dateFrom",
+            "in": "query",
+            "description": "Timespan beginning date (inclusive)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "dateTo",
+            "in": "query",
+            "description": "Timespan ending date (inclusive)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DailySatisticResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DailySatisticResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DailySatisticResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Satistics/{takerAddress}/lockedAssets": {
+      "get": {
+        "tags": [
+          "Satistics"
+        ],
+        "summary": "Returns locked assets statistics for given address",
+        "operationId": "Satistics_GetLockedAssets",
+        "parameters": [
+          {
+            "name": "takerAddress",
+            "in": "path",
+            "description": "taker address [hex or base58]",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LockedAssetChainDTO"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/TermsAndConditions/signConditions": {
+      "post": {
+        "tags": [
+          "TermsAndConditions"
+        ],
+        "summary": "Adds signature for the terms and conditions",
+        "operationId": "TermsAndConditions_SignConditions",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignConditionsRequestDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignConditionsRequestDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignConditionsRequestDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignConditionsRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/TermsAndConditions/{signatoryAddress}/hasSigned": {
+      "get": {
+        "tags": [
+          "TermsAndConditions"
+        ],
+        "summary": "checks if the user has signed the terms and conditions",
+        "operationId": "TermsAndConditions_CheckIfTermsAreSigned",
+        "parameters": [
+          {
+            "name": "signatoryAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/TermsAndConditions/current": {
+      "get": {
+        "tags": [
+          "TermsAndConditions"
+        ],
+        "summary": "Returns current terms and conditions",
+        "operationId": "TermsAndConditions_GetCurrent",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TermsAndConditionsDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TermsAndConditionsDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TermsAndConditionsDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/TokenMetadata/popularTokens": {
+      "get": {
+        "tags": [
+          "TokenMetadata"
+        ],
+        "summary": "Get list of tokens, transferred with DLN, sorted by popularity",
+        "operationId": "TokenMetadata_GetPopularTokens",
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokensMetadataListResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokensMetadataListResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokensMetadataListResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/TokenMetadata/popularTokens/{chainId}": {
+      "get": {
+        "tags": [
+          "TokenMetadata"
+        ],
+        "summary": "Get list of tokens from a specific chain, transferred with DLN, sorted by popularity",
+        "operationId": "TokenMetadata_GetPopularTokens",
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "chainId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokensMetadataListResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokensMetadataListResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokensMetadataListResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Transaction/{orderCreationTransactionHash}/orderIds": {
+      "get": {
+        "tags": [
+          "Transaction"
+        ],
+        "summary": "Returns ids of orders, that were created in a transaction",
+        "operationId": "Transaction_GetOrdersFromTransaction",
+        "parameters": [
+          {
+            "name": "orderCreationTransactionHash",
+            "in": "path",
+            "description": "hash of a transaction the orders were created in",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderIdsDTO"
+                },
+                "example": {
+                  "orderIds": [
+                    {
+                      "bytesValue": "AA4r8JSgZRie2pvbP0vsvMKR1Rz9uWFc2cC+A9msUVI=",
+                      "bytesArrayValue": "[0,14,43,240,148,160,101,24,158,218,155,219,63,75,236,188,194,145,213,28,253,185,97,92,217,192,190,3,217,172,81,82]",
+                      "stringValue": "0x000e2bf094a065189eda9bdb3f4becbcc291d51cfdb9615cd9c0be03d9ac5152"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Transaction/{transactionHash}/liteModels": {
+      "get": {
+        "tags": [
+          "Transaction"
+        ],
+        "summary": "Returns lite order models list by order tx hash",
+        "operationId": "Transaction_GetLiteOrderModel",
+        "parameters": [
+          {
+            "name": "transactionHash",
+            "in": "path",
+            "description": "hash of a transaction to search events in",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderLiteDTO"
+                  }
+                },
+                "example": [
+                  {
+                    "orderId": {
+                      "bytesValue": "AA4r8JSgZRie2pvbP0vsvMKR1Rz9uWFc2cC+A9msUVI=",
+                      "bytesArrayValue": "[0,14,43,240,148,160,101,24,158,218,155,219,63,75,236,188,194,145,213,28,253,185,97,92,217,192,190,3,217,172,81,82]",
+                      "stringValue": "0x000e2bf094a065189eda9bdb3f4becbcc291d51cfdb9615cd9c0be03d9ac5152"
+                    },
+                    "creationTimestamp": 0,
+                    "state": "Fulfilled",
+                    "externalCallState": "NoExtCall",
+                    "makerOrderNonce": 40,
+                    "makerSrc": {
+                      "Base64Value": "Zj3BXTwaxj/xLkWraP6j8KiDwlE=",
+                      "bytesArrayValue": "[102,61,193,93,60,26,198,63,241,46,69,171,104,254,163,240,168,131,194,81]",
+                      "stringValue": "0x663dc15d3c1ac63ff12e45ab68fea3f0a883c251"
+                    },
+                    "giveOffer": {
+                      "chainId": {
+                        "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIk=",
+                        "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,137]",
+                        "bigIntegerValue": 137,
+                        "stringValue": "137"
+                      },
+                      "tokenAddress": {
+                        "Base64Value": "J5G8ofLeRmHtiKMMmaepRJqoQXQ=",
+                        "bytesArrayValue": "[39,145,188,161,242,222,70,97,237,136,163,12,153,167,169,68,154,168,65,116]",
+                        "stringValue": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174"
+                      },
+                      "amount": {
+                        "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKNSk=",
+                        "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,53,41]",
+                        "bigIntegerValue": 668969,
+                        "stringValue": "668969"
+                      }
+                    },
+                    "receiverDst": {
+                      "Base64Value": "sh3+oBDpOfS7DwyzYTUphKjGrA0=",
+                      "bytesArrayValue": "[178,29,254,160,16,233,57,244,187,15,12,179,97,53,41,132,168,198,172,13]",
+                      "stringValue": "0xb21dfea010e939f4bb0f0cb361352984a8c6ac0d"
+                    },
+                    "takeOffer": {
+                      "chainId": {
+                        "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAqGo=",
+                        "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,168,106]",
+                        "bigIntegerValue": 43114,
+                        "stringValue": "43114"
+                      },
+                      "tokenAddress": {
+                        "Base64Value": "AAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+                        "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]",
+                        "stringValue": "0x0000000000000000000000000000000000000000"
+                      },
+                      "amount": {
+                        "bytesValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABD7YnoGwAA=",
+                        "bytesArrayValue": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,251,98,122,6,192,0]",
+                        "bigIntegerValue": 4780000000000000,
+                        "stringValue": "4780000000000000"
+                      }
+                    },
+                    "givePatchAuthoritySrc": {
+                      "Base64Value": "sh3+oBDpOfS7DwyzYTUphKjGrA0=",
+                      "bytesArrayValue": "[178,29,254,160,16,233,57,244,187,15,12,179,97,53,41,132,168,198,172,13]",
+                      "stringValue": "0xb21dfea010e939f4bb0f0cb361352984a8c6ac0d"
+                    },
+                    "orderAuthorityAddressDst": {
+                      "Base64Value": "sh3+oBDpOfS7DwyzYTUphKjGrA0=",
+                      "bytesArrayValue": "[178,29,254,160,16,233,57,244,187,15,12,179,97,53,41,132,168,198,172,13]",
+                      "stringValue": "0xb21dfea010e939f4bb0f0cb361352984a8c6ac0d"
+                    },
+                    "allowedTakerDst": {
+                      "Base64Value": null,
+                      "bytesArrayValue": "",
+                      "stringValue": null
+                    },
+                    "allowedCancelBeneficiarySrc": {
+                      "Base64Value": null,
+                      "bytesArrayValue": "",
+                      "stringValue": null
+                    },
+                    "externalCallData": {
+                      "bytesValue": null,
+                      "bytesArrayValue": null,
+                      "stringValue": null
+                    },
+                    "extcallExecutionProgress": null,
+                    "rawOrderMetadataHex": null
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidInputDataResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Users/usersLeaderboard": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Returns users leaderboard (at the top of the board are users, that have generated the most fees)",
+        "operationId": "Users_GetUserLeaderBoard",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLeaderboardRequestDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLeaderboardRequestDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLeaderboardRequestDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLeaderboardRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserLeaderboardResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserLeaderboardResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserLeaderboardResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Users/referralProgramLeaderboard": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Returns users leaderboard (at the top of the board are users, whose referrals have generated the most fees)",
+        "operationId": "Users_GetReferralProgramLeaderboard",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReferralProgramLeaderboardRequestDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReferralProgramLeaderboardRequestDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReferralProgramLeaderboardRequestDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReferralProgramLeaderboardRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReferralProgramLeaderboardResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReferralProgramLeaderboardResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReferralProgramLeaderboardResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AddressPropertyDTO": {
+        "type": "object",
+        "properties": {
+          "Base64Value": {
+            "type": "string",
+            "description": "Binary representation of the property value",
+            "format": "byte",
+            "nullable": true
+          },
+          "bytesArrayValue": {
+            "type": "string",
+            "description": "Bytes array representation of the value",
+            "nullable": true,
+            "readOnly": true
+          },
+          "stringValue": {
+            "type": "string",
+            "description": "String representation of the property value",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AffiliateFeeDTO": {
+        "type": "object",
+        "properties": {
+          "beneficiarySrc": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "amount": {
+            "$ref": "#/components/schemas/IntPropertyDTO"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AggregationPeriod": {
+        "enum": [
+          "LatestTwentyFourHours",
+          "AllTime"
+        ],
+        "type": "string"
+      },
+      "AnnouncementBannerDTO": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "description": "Domain, that should display this banner",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Banner message for dark mode",
+            "nullable": true
+          },
+          "messageLight": {
+            "type": "string",
+            "description": "Banner message for light mode",
+            "nullable": true
+          },
+          "bannerColorDark": {
+            "type": "string",
+            "description": "Banner background color, that should be used in dark mode",
+            "nullable": true
+          },
+          "bannerColorLight": {
+            "type": "string",
+            "description": "Banner background color, that should be used in light mode",
+            "nullable": true
+          },
+          "textColorDark": {
+            "type": "string",
+            "description": "Banner text color, that should be used in dark mode",
+            "nullable": true
+          },
+          "textColorLight": {
+            "type": "string",
+            "description": "Banner text color, that should be used in light mode",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DailySatisticResponseDTO": {
+        "type": "object",
+        "properties": {
+          "dailyData": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrdersSatisticsDailyDataDTO"
+            },
+            "description": "Statistical data for every requested date for every chain",
+            "nullable": true
+          },
+          "dailyDataCumulative": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrdersSatisticsDailyDataDTO"
+            },
+            "description": "Cumulative statistical data for every requested date for every chain",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DstChainLockedAmountDTO": {
+        "type": "object",
+        "properties": {
+          "targetChainId": {
+            "$ref": "#/components/schemas/IntPropertyDTO"
+          },
+          "dstChainAmount": {
+            "type": "number",
+            "description": "Total amount locked",
+            "format": "int64",
+            "nullable": true
+          },
+          "dstChainTokenAmount": {
+            "type": "number",
+            "description": "DstChainAmount\\decimal",
+            "format": "double",
+            "nullable": true
+          },
+          "ordersToUnlock": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StringPropertyDTO"
+            },
+            "description": "Ids of the orders that the amount is locked in",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "nullable": true
+          },
+          "errorCode": {
+            "type": "integer",
+            "description": "Error code, if differs from response code (if !=422) indicates unique id of the error that can be used for error's handling automation on client side",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Information about error, occurred in the application"
+      },
+      "ExtcallExecutionFullProgressDTO": {
+        "type": "object",
+        "properties": {
+          "totalInstructionsCount": {
+            "type": "integer",
+            "description": "Total number of instructions in the ExternalCall",
+            "format": "int32"
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtcallExecutionProgressStepDTO"
+            },
+            "description": "External call execution steps",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExtcallExecutionProgressDTO": {
+        "type": "object",
+        "properties": {
+          "executedInstructionsCount": {
+            "type": "integer",
+            "description": "Indicates how many\r\nExternalCall instructions were executed\r\nat the time the event occurred",
+            "format": "int32"
+          },
+          "totalInstructionsCount": {
+            "type": "integer",
+            "description": "Total number of instructions in the ExternalCall",
+            "format": "int32"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ExternalCallExecutionStatus"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Describes progress of ExternalCall execution"
+      },
+      "ExtcallExecutionProgressStepDTO": {
+        "type": "object",
+        "properties": {
+          "stepNumber": {
+            "type": "integer",
+            "description": "Indicates how many\r\nExternalCall instructions were executed\r\nat the time the event occurred",
+            "format": "int32"
+          },
+          "eventMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadataDTO"
+          },
+          "extcallBeneficiaries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AddressPropertyDTO"
+            },
+            "description": "Beneficiaries of the ExternalCall execution",
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/ExternalCallExecutionStatus"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Describes progress of ExternalCall execution"
+      },
+      "ExternalCallExecutionStatus": {
+        "enum": [
+          "Executed",
+          "FailedToExecute",
+          "Canceled"
+        ],
+        "type": "string"
+      },
+      "ExternalCallState": {
+        "enum": [
+          "NoExtCall",
+          "AwaitingOrderFulfillment",
+          "AwaitingExecution",
+          "Executing",
+          "Completed",
+          "Failed",
+          "Cancelled",
+          "OrderCancelled"
+        ],
+        "type": "string"
+      },
+      "IntPropertyDTO": {
+        "type": "object",
+        "properties": {
+          "bytesValue": {
+            "type": "string",
+            "description": "Binary representation of the property value",
+            "format": "byte",
+            "nullable": true
+          },
+          "bytesArrayValue": {
+            "type": "string",
+            "description": "Bytes array representation of the value",
+            "nullable": true,
+            "readOnly": true
+          },
+          "bigIntegerValue": {
+            "type": "number",
+            "description": "Integer representation of the property value",
+            "format": "int64",
+            "nullable": true,
+            "readOnly": true
+          },
+          "stringValue": {
+            "type": "string",
+            "description": "String representation of the property value",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InternalServerErrorResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "nullable": true
+          },
+          "errorCode": {
+            "type": "integer",
+            "description": "For this type of error it's always 500",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Information about an internal server error"
+      },
+      "InvalidInputDataResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "nullable": true
+          },
+          "errorCode": {
+            "type": "integer",
+            "description": "For this type of error it's always 400",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Information about bad input params"
+      },
+      "LockedAssetChainDTO": {
+        "type": "object",
+        "properties": {
+          "chainId": {
+            "$ref": "#/components/schemas/IntPropertyDTO"
+          },
+          "lockedTokens": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LockedAssetTokenDTO"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LockedAssetTokenDTO": {
+        "type": "object",
+        "properties": {
+          "tokenAddress": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "tokenMetadata": {
+            "$ref": "#/components/schemas/MetadataDTO"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Total amount locked",
+            "format": "int64"
+          },
+          "tokenAmount": {
+            "type": "number",
+            "description": "Amount\\decimal",
+            "format": "double",
+            "nullable": true
+          },
+          "dstChainsLockedAmounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DstChainLockedAmountDTO"
+            },
+            "description": "Amount grouped by destination chains",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MetadataDTO": {
+        "type": "object",
+        "properties": {
+          "decimals": {
+            "type": "integer",
+            "description": "Decimals of the token",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the token",
+            "nullable": true
+          },
+          "symbol": {
+            "type": "string",
+            "description": "Symbol of the token",
+            "nullable": true
+          },
+          "logoURI": {
+            "type": "string",
+            "description": "URI of the token's logo",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Token metadata DTO"
+      },
+      "OfferDTO": {
+        "type": "object",
+        "properties": {
+          "chainId": {
+            "$ref": "#/components/schemas/IntPropertyDTO"
+          },
+          "tokenAddress": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "amount": {
+            "$ref": "#/components/schemas/IntPropertyDTO"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Info about an offer"
+      },
+      "OfferWithMetadataDTO": {
+        "type": "object",
+        "properties": {
+          "chainId": {
+            "$ref": "#/components/schemas/IntPropertyDTO"
+          },
+          "tokenAddress": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "amount": {
+            "$ref": "#/components/schemas/IntPropertyDTO"
+          },
+          "finalAmount": {
+            "$ref": "#/components/schemas/IntPropertyDTO"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/MetadataDTO"
+          },
+          "decimals": {
+            "type": "integer",
+            "description": "Decimals of the token",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the token",
+            "nullable": true
+          },
+          "symbol": {
+            "type": "string",
+            "description": "Symbol of the token",
+            "nullable": true
+          },
+          "logoURI": {
+            "type": "string",
+            "description": "Token's logo URI",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Info about an offer"
+      },
+      "OrderCreationProcessType": {
+        "enum": [
+          "SrcAmountSet",
+          "DstAmountSet",
+          "SrcAndDstAmountSet",
+          "SrcAndDstAmountSetNoPreswap"
+        ],
+        "type": "string"
+      },
+      "OrderDTO": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "$ref": "#/components/schemas/StringPropertyDTO"
+          },
+          "makerOrderNonce": {
+            "type": "integer",
+            "description": "Consecutive unique number of the order for given user in given chain",
+            "format": "int64"
+          },
+          "makerSrc": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "giveOfferWithMetadata": {
+            "$ref": "#/components/schemas/OfferWithMetadataDTO"
+          },
+          "receiverDst": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "takeOfferWithMetadata": {
+            "$ref": "#/components/schemas/OfferWithMetadataDTO"
+          },
+          "givePatchAuthoritySrc": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "orderAuthorityAddressDst": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "allowedTakerDst": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "allowedCancelBeneficiarySrc": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "state": {
+            "$ref": "#/components/schemas/OrderState"
+          },
+          "externalCallState": {
+            "$ref": "#/components/schemas/ExternalCallState"
+          },
+          "referralCode": {
+            "type": "integer",
+            "description": "Referral program code",
+            "format": "int32"
+          },
+          "percentFee": {
+            "$ref": "#/components/schemas/IntPropertyDTO"
+          },
+          "finalPercentFee": {
+            "$ref": "#/components/schemas/IntPropertyDTO"
+          },
+          "fixFee": {
+            "$ref": "#/components/schemas/IntPropertyDTO"
+          },
+          "unlockBeneficiarySrc": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "cancelBeneficiarySrc": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "taker": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "unlockAuthorityDst": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "affiliateFee": {
+            "$ref": "#/components/schemas/AffiliateFeeDTO"
+          },
+          "createdSrcEventMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadataDTO"
+          },
+          "fulfilledDstEventMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadataDTO"
+          },
+          "sentUnlockDstEventInfo": {
+            "$ref": "#/components/schemas/OrderEventDTO"
+          },
+          "claimedUnlockSrcEventInfo": {
+            "$ref": "#/components/schemas/OrderEventDTO"
+          },
+          "orderCancelledDstEventMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadataDTO"
+          },
+          "sentOrderCancelDstEventInfo": {
+            "$ref": "#/components/schemas/OrderEventDTO"
+          },
+          "claimedOrderCancelSrcEventInfo": {
+            "$ref": "#/components/schemas/OrderEventDTO"
+          },
+          "preswapData": {
+            "$ref": "#/components/schemas/SwapExecutedEventDTO"
+          },
+          "externalCallData": {
+            "$ref": "#/components/schemas/StringPropertyDTO"
+          },
+          "orderMetadata": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/OrderRawMetadataDTO"
+              },
+              {
+                "$ref": "#/components/schemas/OrderParsedMetadataDTO"
+              }
+            ],
+            "description": "Metadata of the order",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderEventDTO": {
+        "type": "object",
+        "properties": {
+          "transactionMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadataDTO"
+          },
+          "submissionId": {
+            "$ref": "#/components/schemas/StringPropertyDTO"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Information about an orderEvent"
+      },
+      "OrderGiveOfferDTO": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "$ref": "#/components/schemas/StringPropertyDTO"
+          },
+          "giveTokenAddress": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "finalGiveAmount": {
+            "$ref": "#/components/schemas/IntPropertyDTO"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Info about an offer"
+      },
+      "OrderGiveOfferRequestDTO": {
+        "type": "object",
+        "properties": {
+          "giveChainIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "description": "If set, only orders that originated in specified chains will be in the output",
+            "nullable": true
+          },
+          "orderStates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderState"
+            },
+            "description": "If set, only orders that are in specified states, will be in the output",
+            "nullable": true
+          },
+          "unlockAuthorities": {
+            "type": "string",
+            "description": "If set, only orders that have a specified address as unlock authority in destination chain will be in the output\r\nMultiple values can be specified at the same time (with space as separator), if many values are specified, result will contain all orders that fit at least one of the criteria",
+            "nullable": true
+          },
+          "skip": {
+            "type": "integer",
+            "description": "items to skip (pagination)",
+            "format": "int32"
+          },
+          "take": {
+            "type": "integer",
+            "description": "Number of items to return (pagination)",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderGiveOfferResponseDTO": {
+        "type": "object",
+        "properties": {
+          "orders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderGiveOfferDTO"
+            },
+            "description": "Orders from requested page of the search result",
+            "nullable": true
+          },
+          "totalCount": {
+            "type": "integer",
+            "description": "Total number of orders fitting the search criteria",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderIdsDTO": {
+        "type": "object",
+        "properties": {
+          "orderIds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StringPropertyDTO"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderListItemDTO": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "$ref": "#/components/schemas/StringPropertyDTO"
+          },
+          "creationTimestamp": {
+            "type": "integer",
+            "description": "Timestamp of this event's CreatedOrderSrcEvent's block\\slot",
+            "format": "int64"
+          },
+          "giveOfferWithMetadata": {
+            "$ref": "#/components/schemas/OfferWithMetadataDTO"
+          },
+          "takeOfferWithMetadata": {
+            "$ref": "#/components/schemas/OfferWithMetadataDTO"
+          },
+          "state": {
+            "$ref": "#/components/schemas/OrderState"
+          },
+          "externalCallState": {
+            "$ref": "#/components/schemas/ExternalCallState"
+          },
+          "finalPercentFee": {
+            "$ref": "#/components/schemas/IntPropertyDTO"
+          },
+          "fixFee": {
+            "$ref": "#/components/schemas/IntPropertyDTO"
+          },
+          "affiliateFee": {
+            "$ref": "#/components/schemas/AffiliateFeeDTO"
+          },
+          "unlockAuthorityDst": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "createEventTransactionHash": {
+            "$ref": "#/components/schemas/StringPropertyDTO"
+          },
+          "preswapData": {
+            "$ref": "#/components/schemas/SwapExecutedEventDTO"
+          },
+          "orderMetadata": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/OrderRawMetadataDTO"
+              },
+              {
+                "$ref": "#/components/schemas/OrderParsedMetadataDTO"
+              }
+            ],
+            "description": "Metadata of the order",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderLiteDTO": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "$ref": "#/components/schemas/StringPropertyDTO"
+          },
+          "creationTimestamp": {
+            "type": "integer",
+            "description": "Timestamp of this event's CreatedOrderSrcEvent's block\\slot",
+            "format": "int64"
+          },
+          "state": {
+            "$ref": "#/components/schemas/OrderState"
+          },
+          "externalCallState": {
+            "$ref": "#/components/schemas/ExternalCallState"
+          },
+          "makerOrderNonce": {
+            "type": "integer",
+            "description": "Consecutive unique number of the order for given user in given chain",
+            "format": "int64"
+          },
+          "makerSrc": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "giveOffer": {
+            "$ref": "#/components/schemas/OfferDTO"
+          },
+          "receiverDst": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "takeOffer": {
+            "$ref": "#/components/schemas/OfferDTO"
+          },
+          "givePatchAuthoritySrc": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "orderAuthorityAddressDst": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "allowedTakerDst": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "allowedCancelBeneficiarySrc": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "externalCallData": {
+            "$ref": "#/components/schemas/StringPropertyDTO"
+          },
+          "extcallExecutionProgress": {
+            "$ref": "#/components/schemas/ExtcallExecutionProgressDTO"
+          },
+          "rawOrderMetadataHex": {
+            "type": "string",
+            "description": "Order metadata in hex format",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderMetadataDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Order metadata base class"
+      },
+      "OrderOrigin": {
+        "enum": [
+          "Default",
+          "DeSwap",
+          "Dln",
+          "DeSwapWidget",
+          "DeSwapSolflare",
+          "DlnSolflare"
+        ],
+        "type": "string"
+      },
+      "OrderParsedMetadataDTO": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/OrderMetadataDTO"
+          }
+        ],
+        "properties": {
+          "version": {
+            "type": "integer",
+            "description": "Metadata version",
+            "format": "int32"
+          },
+          "creationProcessType": {
+            "$ref": "#/components/schemas/OrderCreationProcessType"
+          },
+          "origin": {
+            "$ref": "#/components/schemas/OrderOrigin"
+          },
+          "additionalTakerIncentiveBps": {
+            "type": "integer",
+            "description": "Additional taker incentive bps",
+            "format": "int32"
+          },
+          "operatingExpensesAmount": {
+            "type": "string",
+            "description": "20-byte prepended operating expenses amount in input token currency: integer",
+            "nullable": true
+          },
+          "recommendedTakeAmount": {
+            "type": "string",
+            "description": "20-byte recommended take amount in take token currency: integer",
+            "nullable": true
+          },
+          "metadata": {
+            "type": "string",
+            "description": "Order's auxiliary metadata [hex]",
+            "nullable": true
+          },
+          "promotionType": {
+            "$ref": "#/components/schemas/PromotionType"
+          },
+          "orderTradeType": {
+            "$ref": "#/components/schemas/OrderTradeType"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Parsed order metadata"
+      },
+      "OrderRawMetadataDTO": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/OrderMetadataDTO"
+          }
+        ],
+        "properties": {
+          "rawMetadataHex": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Raw order metadata"
+      },
+      "OrderState": {
+        "enum": [
+          "None",
+          "Created",
+          "Fulfilled",
+          "SentUnlock",
+          "OrderCancelled",
+          "SentOrderCancel",
+          "ClaimedUnlock",
+          "ClaimedOrderCancel"
+        ],
+        "type": "string"
+      },
+      "OrderTradeType": {
+        "enum": [
+          "None",
+          "Market",
+          "Limit"
+        ],
+        "type": "string"
+      },
+      "OrdersRequestDTO": {
+        "type": "object",
+        "properties": {
+          "giveChainIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "description": "If set, only orders that originated in specified chains will be in the output",
+            "nullable": true
+          },
+          "takeChainIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "description": "If set, only orders that have one the specified chains as target chain, will be in the output",
+            "nullable": true
+          },
+          "orderStates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderState"
+            },
+            "description": "If set, only orders that are in specified states, will be in the output",
+            "nullable": true
+          },
+          "externalCallStates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExternalCallState"
+            },
+            "description": "If set, only orders that have externalCall in given state, will be in the output",
+            "nullable": true
+          },
+          "filter": {
+            "type": "string",
+            "description": "If set, only orders that have specified filter value as one of the following properties will be in the output\r\nMakerSrc-sender's address\r\nReceiverDst-Receiver's address\r\nGivePatchAuthoritySrc-Address of the wallet that can change value of Give amount in source chain\r\nOrderAuthorityAddressDst-Address of the wallet that can change value of Take amount (for example reduce it to make order more profitable for the MM) in destination chain or cancel the order\r\nAllowedTakerDst-If set, only MM with given address will be able to fulfill the order (i.e. allows creation of orders, targeted at specific MM)\r\nAllowedCancelBeneficiarySrc -Wallet address, if specified, refund after order cancellation will only be allowed to this address\r\nOrderId",
+            "nullable": true
+          },
+          "skip": {
+            "type": "integer",
+            "description": "items to skip (pagination)",
+            "format": "int32"
+          },
+          "take": {
+            "type": "integer",
+            "description": "Number of items to return (pagination)",
+            "format": "int32"
+          },
+          "blockTimestampFrom": {
+            "type": "integer",
+            "description": "If set, only orders which creations event's Block\\slot timestamp is greater or equal to this one will be returned [seconds]",
+            "format": "int64",
+            "nullable": true
+          },
+          "blockTimestampTo": {
+            "type": "integer",
+            "description": "If set, only orders which  creations event's  timestamp is less or equal to this one will be returned [seconds]",
+            "format": "int64",
+            "nullable": true
+          },
+          "fulfiller": {
+            "type": "string",
+            "description": "If set, only orders that have  specified address as fulfiller will be in the output\r\nMultiple values can be specified at the same time (with space as separator), if many values are specified, result will contain all orders that fit at least one of the criteria",
+            "nullable": true
+          },
+          "unlockAuthorities": {
+            "type": "string",
+            "description": "If set, only orders that have a specified address as unlock authority in destination chain will be in the output\r\nMultiple values can be specified at the same time (with space as separator), if many values are specified, result will contain all orders that fit at least one of the criteria",
+            "nullable": true
+          },
+          "maker": {
+            "type": "string",
+            "description": "If set, only orders that have  specified address as maker will be in the output\r\nMultiple values can be specified at the same time (with space as separator), if many values are specified, result will contain all orders that fit at least one of the criteria",
+            "nullable": true
+          },
+          "creator": {
+            "type": "string",
+            "description": "If set, only orders that have  specified address as initiator of send event\r\nMultiple values can be specified at the same time (with space as separator), if many values are specified, result will contain all orders that fit at least one of the criteria",
+            "nullable": true
+          },
+          "referralCode": {
+            "type": "integer",
+            "description": "Referral program code (if set, only orders with that have specified referral in create event will be in the output)",
+            "format": "int32",
+            "nullable": true
+          },
+          "orderAuthorityInSourceChain": {
+            "type": "string",
+            "description": "If set, only orders that have  specified address as order authority in source chain will be in the output\r\nMultiple values can be specified at the same time (with space as separator), if many values are specified, result will contain all orders that fit at least one of the criteria\r\n[hex or base58]",
+            "nullable": true
+          },
+          "orderAuthorityInDestinationChain": {
+            "type": "string",
+            "description": "If set, only orders that have  specified address as order authority in destination chain will be in the output\r\nMultiple values can be specified at the same time (with space as separator), if many values are specified, result will contain all orders that fit at least one of the criteria\r\n[hex or base58]",
+            "nullable": true
+          },
+          "orderTradeType": {
+            "$ref": "#/components/schemas/OrderTradeType"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrdersResponseDTO": {
+        "type": "object",
+        "properties": {
+          "orders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderListItemDTO"
+            },
+            "description": "Orders from requested page of the search result",
+            "nullable": true
+          },
+          "totalCount": {
+            "type": "integer",
+            "description": "Total number of orders fitting the search criteria",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrdersSatisticsDTO": {
+        "type": "object",
+        "properties": {
+          "totalAmountGivenUsd": {
+            "type": "number",
+            "description": "Total Give amount USD equivalent",
+            "format": "double"
+          },
+          "totalAmountTakenUsd": {
+            "type": "number",
+            "description": "Total Take amount USD equivalent",
+            "format": "double"
+          },
+          "totalProtocolFeeUsd": {
+            "type": "number",
+            "description": "Total FixFee+TransferFee USD equivalent",
+            "format": "double"
+          },
+          "totalAffiliateFeeUsd": {
+            "type": "number",
+            "description": "Total AffiliateFee USD equivalent",
+            "format": "double"
+          },
+          "createdOrdersCount": {
+            "type": "integer",
+            "description": "Number of created orders",
+            "format": "int32"
+          },
+          "fulfilledOrdersCount": {
+            "type": "integer",
+            "description": "Number of fulfilled orders",
+            "format": "int32"
+          },
+          "activeOrdersCount": {
+            "type": "integer",
+            "description": "Number of active (i.e created, but not fulfilled)",
+            "format": "int32"
+          },
+          "uniqueOrderCreators": {
+            "type": "integer",
+            "description": "Unique users that created orders",
+            "format": "int32"
+          },
+          "date": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "period": {
+            "$ref": "#/components/schemas/AggregationPeriod"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrdersSatisticsDailyDataDTO": {
+        "type": "object",
+        "properties": {
+          "giveChainId": {
+            "$ref": "#/components/schemas/IntPropertyDTO"
+          },
+          "takeChainId": {
+            "$ref": "#/components/schemas/IntPropertyDTO"
+          },
+          "date": {
+            "type": "integer",
+            "description": "Start of day for which the statistics has been collected",
+            "format": "int64"
+          },
+          "createdOrdersCount": {
+            "type": "integer",
+            "description": "Number of created orders",
+            "format": "int32"
+          },
+          "fulfilledOrdersCount": {
+            "type": "integer",
+            "description": "Number of fulfilled orders",
+            "format": "int32"
+          },
+          "totalAmountGivenUsd": {
+            "type": "number",
+            "description": "Total Give amount USD equivalent",
+            "format": "double"
+          },
+          "totalAmountTakenUsd": {
+            "type": "number",
+            "description": "Total Take amount USD equivalent",
+            "format": "double"
+          },
+          "totalProtocolFeeUsd": {
+            "type": "number",
+            "description": "Total FixFee+TransferFee USD equivalent",
+            "format": "double"
+          },
+          "uniqueOrderCreators": {
+            "type": "integer",
+            "description": "Number of unique users that created orders that day",
+            "format": "int32"
+          },
+          "newOrderCreators": {
+            "type": "integer",
+            "description": "Number of new users, that created orders that day",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PromotionType": {
+        "enum": [
+          "None",
+          "ArbitrumHorizon",
+          "OpHorizon"
+        ],
+        "type": "string"
+      },
+      "ReferralProgramLeaderboardItemDTO": {
+        "type": "object",
+        "properties": {
+          "referralCode": {
+            "type": "integer",
+            "description": "Referral code of the user",
+            "format": "int32"
+          },
+          "referralProgramRank": {
+            "type": "integer",
+            "description": "Rank of the inviter (i.e. a user, that invites other users) in the leaderboard\r\nUsers are ranked by InvitedUsersTotalFeesGeneratedUsd descending",
+            "format": "int32"
+          },
+          "referralsTotalVolumeUsd": {
+            "type": "number",
+            "description": "Total give amount's USD equivalent of all user's orders that used the referral code",
+            "format": "double"
+          },
+          "referralsTotalFeesUsd": {
+            "type": "number",
+            "description": "Total fees' USD equivalent of all user's orders that used the referral code",
+            "format": "double"
+          },
+          "referralsTotalExecutedOrders": {
+            "type": "integer",
+            "description": "Total number of user's orders that used the referral code",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReferralProgramLeaderboardRequestDTO": {
+        "required": [
+          "skip",
+          "take"
+        ],
+        "type": "object",
+        "properties": {
+          "referralCode": {
+            "type": "integer",
+            "description": "Referral code of a user to search for [hex of base58, optional]",
+            "format": "int32",
+            "nullable": true
+          },
+          "skip": {
+            "type": "integer",
+            "description": "items to skip (pagination)",
+            "format": "int32"
+          },
+          "take": {
+            "type": "integer",
+            "description": "Number of items to return (pagination) max page size is 100",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Referral program leaderboard request"
+      },
+      "ReferralProgramLeaderboardResponseDTO": {
+        "type": "object",
+        "properties": {
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReferralProgramLeaderboardItemDTO"
+            },
+            "description": "Leaderboard items from requested page",
+            "nullable": true
+          },
+          "totalCount": {
+            "type": "integer",
+            "description": "Total number of leaderboard items",
+            "format": "int32"
+          },
+          "searchResult": {
+            "$ref": "#/components/schemas/ReferralProgramLeaderboardItemDTO"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Referral program leaderboard response"
+      },
+      "ReferralStatisticsDTO": {
+        "type": "object",
+        "properties": {
+          "referralCode": {
+            "maximum": 4294967295,
+            "minimum": 1,
+            "type": "integer",
+            "description": "Referral code user used to invite other users",
+            "format": "int32"
+          },
+          "totalUsers": {
+            "maximum": 2147483647,
+            "minimum": 0,
+            "type": "integer",
+            "description": "Total number of users, that used the ReferralCode at least once in their transactions",
+            "format": "int32"
+          },
+          "totalOrdersFulfilled": {
+            "maximum": 2147483647,
+            "minimum": 0,
+            "type": "integer",
+            "description": "Number of fulfilled orders that used the ReferralCode in order creation transaction",
+            "format": "int32"
+          },
+          "totalAmountGivenUsd": {
+            "type": "number",
+            "description": "Total Give amount USD equivalent of all orders that used the ReferralCode",
+            "format": "double"
+          },
+          "totalFeesGeneratedUsd": {
+            "type": "number",
+            "description": "Total amount (USD equivalent) of fees generated  by orders that used the ReferralCode",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReferredUserDTO": {
+        "type": "object",
+        "properties": {
+          "walletAddress": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "totalVolumeUSD": {
+            "type": "number",
+            "description": "Total give amount's USD equivalent of all user's orders that used the referral code",
+            "format": "double"
+          },
+          "totalFeesUSD": {
+            "type": "number",
+            "description": "Total fees' USD equivalent of all user's orders that used the referral code",
+            "format": "double"
+          },
+          "totalExecutedOrders": {
+            "type": "integer",
+            "description": "Total number of user's orders that used the referral code",
+            "format": "int32"
+          },
+          "wasInvitedByCurrentUser": {
+            "type": "boolean",
+            "description": "Indicates whether the user is invited by the owner of the referral code passed in the request"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Information about a user, that used referral code [passed in the request] while creating an order"
+      },
+      "ReferredUsersResponseDTO": {
+        "type": "object",
+        "properties": {
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReferredUserDTO"
+            },
+            "description": "Orders from requested page of the search result",
+            "nullable": true
+          },
+          "totalCount": {
+            "type": "integer",
+            "description": "Total number of users",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SignConditionsRequestDTO": {
+        "type": "object",
+        "properties": {
+          "signatoryAddress": {
+            "type": "string",
+            "description": "Address of a wallet that signs the terms and conditions",
+            "nullable": true
+          },
+          "signature": {
+            "type": "string",
+            "description": "Signature of the terms and conditions",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request DTO for signing the terms and conditions"
+      },
+      "SolanaCreateOrderEventDTO": {
+        "type": "object",
+        "properties": {
+          "blockNumber": {
+            "type": "integer",
+            "description": "Number of the block the event was emitted it",
+            "format": "int64"
+          },
+          "blockTimestamp": {
+            "type": "integer",
+            "description": "Timestamp of the block the event was emitted it",
+            "format": "int64"
+          },
+          "txHash": {
+            "type": "string",
+            "description": "Hash of the transaction",
+            "nullable": true
+          },
+          "from": {
+            "type": "string",
+            "description": "Maker's address",
+            "nullable": true
+          },
+          "to": {
+            "type": "string",
+            "description": "Receiver's address",
+            "nullable": true
+          },
+          "token": {
+            "type": "string",
+            "description": "GiveToken address",
+            "nullable": true
+          },
+          "amount": {
+            "type": "string",
+            "description": "Give amount",
+            "nullable": true
+          },
+          "isDeposit": {
+            "type": "boolean",
+            "description": "True if current event is unlock event, false if it is unlock event"
+          },
+          "giveAmountUSD": {
+            "type": "number",
+            "description": "USD equivalent for GiveAmount",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Information about create event emitted on Solana chain"
+      },
+      "StringPropertyDTO": {
+        "type": "object",
+        "properties": {
+          "bytesValue": {
+            "type": "string",
+            "description": "Binary representation of the property value",
+            "format": "byte",
+            "nullable": true
+          },
+          "bytesArrayValue": {
+            "type": "string",
+            "description": "Bytes array representation of the value",
+            "nullable": true,
+            "readOnly": true
+          },
+          "stringValue": {
+            "type": "string",
+            "description": "String representation of the property value",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SwapExecutedEventDTO": {
+        "type": "object",
+        "properties": {
+          "chainId": {
+            "$ref": "#/components/schemas/IntPropertyDTO"
+          },
+          "inTokenAddress": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "inAmount": {
+            "$ref": "#/components/schemas/IntPropertyDTO"
+          },
+          "tokenInMetadata": {
+            "$ref": "#/components/schemas/MetadataDTO"
+          },
+          "tokenInLogoURI": {
+            "type": "string",
+            "description": "Logo URI of the token that was used as input of the swap",
+            "nullable": true,
+            "readOnly": true
+          },
+          "outTokenAddress": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "outAmount": {
+            "$ref": "#/components/schemas/IntPropertyDTO"
+          },
+          "tokenOutMetadata": {
+            "$ref": "#/components/schemas/MetadataDTO"
+          },
+          "tokenOutLogoURI": {
+            "type": "string",
+            "description": "Logo URI of the token that was received as a result of the swap",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TermsAndConditionsDTO": {
+        "type": "object",
+        "properties": {
+          "bytesArrayValue": {
+            "type": "string",
+            "description": "Bytes array representation of the value",
+            "nullable": true
+          },
+          "stringValue": {
+            "type": "string",
+            "description": "String representation of the property value",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "DeBridge's terms and conditions"
+      },
+      "TokenMetadataInfoDTO": {
+        "type": "object",
+        "properties": {
+          "chainId": {
+            "$ref": "#/components/schemas/IntPropertyDTO"
+          },
+          "tokenAddress": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "popularityIndex": {
+            "type": "integer",
+            "description": "Number of orders that this token was used in as SwapIn (if there was a preswap), Give token (if there was no preswap) or Take token",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TokensMetadataListResponseDTO": {
+        "type": "object",
+        "properties": {
+          "tokens": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TokenMetadataInfoDTO"
+            },
+            "description": "Tokens from requested page",
+            "nullable": true
+          },
+          "totalCount": {
+            "type": "integer",
+            "description": "Total number of tokens",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Tokens metadata info"
+      },
+      "TransactionMetadataDTO": {
+        "type": "object",
+        "properties": {
+          "transactionHash": {
+            "$ref": "#/components/schemas/StringPropertyDTO"
+          },
+          "blockNumber": {
+            "type": "integer",
+            "description": "Number of a block\\slot this event was produced in",
+            "format": "int64"
+          },
+          "blockHash": {
+            "$ref": "#/components/schemas/StringPropertyDTO"
+          },
+          "blockTimeStamp": {
+            "type": "integer",
+            "description": "Timestamp of a block\\slot event was produced in",
+            "format": "int64"
+          },
+          "initiator": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserLeaderboardItemDTO": {
+        "type": "object",
+        "properties": {
+          "walletAddress": {
+            "$ref": "#/components/schemas/AddressPropertyDTO"
+          },
+          "userRank": {
+            "type": "integer",
+            "description": "Rank of the user in the leaderboard\r\nUsers are ranked by TotalFeesGeneratedUsd descending",
+            "format": "int32"
+          },
+          "totalVolumeUSD": {
+            "type": "number",
+            "description": "Total give amount's USD equivalent of all user's orders that used the referral code",
+            "format": "double"
+          },
+          "totalFeesUSD": {
+            "type": "number",
+            "description": "Total fees' USD equivalent of all user's orders that used the referral code",
+            "format": "double"
+          },
+          "totalExecutedOrders": {
+            "type": "integer",
+            "description": "Total number of user's orders that used the referral code",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserLeaderboardRequestDTO": {
+        "required": [
+          "skip",
+          "take"
+        ],
+        "type": "object",
+        "properties": {
+          "walletAddress": {
+            "type": "string",
+            "description": "Address of a wallet to search for [hex of base58, optional]",
+            "nullable": true
+          },
+          "skip": {
+            "type": "integer",
+            "description": "items to skip (pagination)",
+            "format": "int32"
+          },
+          "take": {
+            "type": "integer",
+            "description": "Number of items to return (pagination) max page size is 100",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserLeaderboardResponseDTO": {
+        "type": "object",
+        "properties": {
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserLeaderboardItemDTO"
+            },
+            "description": "Leaderboard items from requested page",
+            "nullable": true
+          },
+          "totalCount": {
+            "type": "integer",
+            "description": "Total number of leaderboard items",
+            "format": "int32"
+          },
+          "searchResult": {
+            "$ref": "#/components/schemas/UserLeaderboardItemDTO"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Users leaderboard page info"
+      }
+    }
+  }
+}

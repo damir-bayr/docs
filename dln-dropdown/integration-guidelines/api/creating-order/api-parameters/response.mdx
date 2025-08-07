@@ -1,0 +1,105 @@
+---
+title: 'API Response'
+description: 'Detailed descriptions of the `create-tx` API response structure.'
+---
+
+There are several sections to a `create-tx` response. You can see a full, real-world API response example here. They are:
+## `estimation` 
+This field contains gas and fee-related estimates used in the transaction planning process.
+
+## `srcChainTokenIn`
+
+This field is always present. Represents the structure of what the user wants to sell on the source chain.
+
+| **Field Name**                | **Type**    | **Description**                                                                                                                                          |
+|------------------------------|-------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `address`                    | `string`    | Source chain input asset address – what the user is trying to sell on the source chain.                                                                 |
+| `chainId`                    | `integer`   | Source chain ID.                                                                                                                                         |
+| `decimals`                   | `integer`   | Source chain input asset decimals.                                                                                                                       |
+| `name`                       | `string`    | Source chain input asset name.                                                                                                                           |
+| `symbol`                     | `string`    | Source chain input asset symbol.                                                                                                                         |
+| `amount`                     | `string`    | Source chain input asset amount, taking the decimals into account. May differ from `srcChainTokenInAmount` if operating expenses were prepended.        |
+| `approximateOperatingExpense`| `string`    | Solver's operating expense for this swap.                                                                                                                |
+| `mutatedWithOperatingExpense`| `boolean`   | Signifies if the request had prepended operating expenses.                                                                                               |
+| `approximateUsdValue`        | `integer`   | Approximate USD value of the source chain input assets. For informative purposes only – not for real-time trading.                                      |
+| `originApproximateUsdValue`  | `integer`   | Approximate USD value before operating expenses were prepended. Only present if the input asset was **not** a reserve asset.                            |
+
+---
+
+## `srcChainTokenOut` *(optional)*
+
+This field is only present if the input asset was not a reserve asset and had to be swapped.
+
+| **Field Name**                | **Type**    | **Description**                                                                                                                                          |
+|------------------------------|-------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `address`                    | `string`    | Source chain output asset address – what the input asset was swapped for during the pre-swap.                                                           |
+| `chainId`                    | `integer`   | Source chain ID.                                                                                                                                         |
+| `decimals`                   | `integer`   | Source chain output asset decimals.                                                                                                                      |
+| `name`                       | `string`    | Source chain output asset name.                                                                                                                          |
+| `symbol`                     | `string`    | Source chain output asset symbol.                                                                                                                        |
+| `amount`                     | `string`    | Source chain output asset amount, taking the decimals into account.                                                                                      |
+| `maxRefundAmount`            | `string`    | Solver’s maximum refundable operating expense.                                                                                                           |
+| `approximateUsdValue`        | `integer`   | Approximate USD value of the output asset. For informative purposes only – not for real-time trading.                                                   |
+
+---
+
+## `dstChainTokenOut`
+
+This field is always present. Represents the structure of what the user wants to receive on the destination chain.
+
+| **Field Name**                | **Type**    | **Description**                                                                                                                           |
+|------------------------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| `address`                    | `string`    | Destination chain output asset address – what the user wants to receive when the order is fulfilled.                                     |
+| `chainId`                    | `integer`   | Destination chain ID.                                                                                                                     |
+| `decimals`                   | `integer`   | Destination chain output asset decimals.                                                                                                  |
+| `name`                       | `string`    | Destination chain output asset name.                                                                                                      |
+| `symbol`                     | `string`    | Destination chain output asset symbol.                                                                                                    |
+| `amount`                     | `string`    | Destination chain output asset amount, taking the decimals into account.                                                                  |
+| `recommendedAmount`          | `string`    | Recommended output asset amount, considering fees and taker margin.                                                                       |
+| `approximateUsdValue`        | `integer`   | Approximate USD value of the output asset. Informative only.                                                                              |
+| `recommendedApproximateUsdValue` | `integer` | Approximate USD value of `recommendedAmount`.                                                                                             |
+
+## `costDetails`
+
+An array describing the cost components associated with the trade. Possible entry types include: 
+- `PreSwap` 
+- `PreSwapEstimatedSlippage` 
+- `DlnProtocolFee`
+- `TakerMargin`
+- `EstimatedOperatingExpenses`
+- `AfterSwap`
+- `AfterSwapEstimatedSlippage`
+
+## **`tx`**
+  - `data`: The data that must be signed and submitted. It contains all necessary information to initiate a [cross-chain
+    order](/dln-specifics/bridging-reserve-assets), including cases involving [non-reserve assets](/dln-specifics/bridging-non-reserve-assets). It is
+    either a calldata (for EVM-based chains) or a serialized transaction (for Solana).
+  - `to`: Destination address for the transaction. Acts as the spender in the `approve` call for ERC-20 tokens. Applicable to EVM source chains only.
+  - `value`: [Flat fee](/overview/fees-supported-chains) in the source chain's native currency charged by the DLN protocol. Applicable to EVM source chains only.
+
+## **`prependedOperatingExpenseCost`** 
+Estimated operating cost added to the transaction, adjusted for token decimals. Present only if the request was made with `prependOperatingExpenses` enabled.
+
+## **`order`** 
+An object containing details required to facilitate the cross-chain trade.
+- **`approximateFulfillmentDelay`**  
+  Estimated delay, in seconds, for the order to be fulfilled.
+
+- **`salt`**  
+  Randomized value used to ensure uniqueness in the order hash.
+
+- **`metadata`**  
+  Additional contextual information about the order.
+
+## **`orderId`**  
+  A deterministic identifier for the order. The same ID is used on both source and destination chains and can be used to [track order
+  status](/integration-guidelines/api/monitoring-orders/rest).
+
+## **`fixFee`**  
+  [Flat fee](/overview/fees-supported-chains) charged in the source chain's native currency. This matches `tx.value` for EVM-based chains.
+
+## **`userPoints`**  
+  The number of deBridge points that the user will get for this trade.
+
+## **`integratorPoints`**  
+  The number of deBridge points that the integrator will get for this trade.

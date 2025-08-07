@@ -1,0 +1,139 @@
+---
+title: 'Quoting Strategies'
+description: 'Possible quoting strategies explained in detail.'
+---
+
+DLN supports multiple quoting strategies that allow users to control how much is spent on the source chain and how much is received on the destination
+chain. Each strategy is defined by how the `srcChainTokenInAmount` and `dstChainTokenOutAmount` fields are set in the order input.
+
+## Quoting Strategies Overview
+
+### Market Order (Recommended)
+
+```ts
+const orderInput: deBridgeOrderInput = {
+  ...,
+  srcChainTokenInAmount: "<fixed_amount>",
+  dstChainTokenOutAmount: "auto",
+  ...
+};
+```
+
+* Default and most commonly used strategy.
+* User defines the exact input amount.
+* Protocol determines the best output amount.
+
+✅ Recommended for most standard transfers.
+
+Requirements:
+
+* `srcChainTokenInAmount` = fixed numeric value
+* `dstChainTokenOutAmount` = "auto"
+
+---
+
+### Market Order with Full Balance Utilization
+
+```ts
+const orderInput: deBridgeOrderInput = {
+  ...,
+  srcChainTokenInAmount: "max",
+  dstChainTokenOutAmount: "auto",
+  ...
+};
+```
+
+* Spends the full wallet balance.
+* Useful for account abstraction, batch transfers, smart wallets.
+
+Requirements:
+
+* `srcChainTokenInAmount` = "max"
+* `dstChainTokenOutAmount` = "auto"
+
+---
+
+### Reverse Market Order
+
+```ts
+const orderInput: deBridgeOrderInput = {
+  ...,
+  srcChainTokenInAmount: "auto",
+  dstChainTokenOutAmount: "<fixed_amount>",
+  ...
+};
+```
+
+* User specifies how much to **receive**.
+* Protocol calculates how much must be spent.
+* Ideal for payment flows or contract interactions.
+
+Requirements:
+
+* `srcChainTokenInAmount` = "auto"
+* `dstChainTokenOutAmount` = fixed numeric value
+
+---
+
+### Limit Order (Not Recommended)
+
+```ts
+const orderInput: deBridgeOrderInput = {
+  ...,
+  srcChainTokenInAmount: "<fixed_amount>",
+  dstChainTokenOutAmount: "<fixed_amount>",
+  ...
+};
+```
+
+* Defines both input and output amounts.
+* Treated as a limit order.
+* Will only be fulfilled if a solver accepts the exact terms.
+
+<Warning>
+
+Not recommended for production — risk of non-fulfillment.
+
+</Warning>
+
+Requirements:
+
+* Both values must be fixed.
+
+---
+
+## Example: Order Input Structure
+
+```ts
+const arbUsdcAddress = "0xaf88d065e77c8cc2239327c5edb3a432268e5831";
+const bnbUsdcAddress = "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d";
+const usdcDecimals = 18;
+const amountToSend = "0.01";
+
+const amountInAtomicUnit = ethers.parseUnits(amountToSend, usdcDecimals);
+
+const orderInput: deBridgeOrderInput = {
+  srcChainId: '56',
+  srcChainTokenIn: bnbUsdcAddress,
+  srcChainTokenInAmount: amountInAtomicUnit.toString(),
+  dstChainTokenOutAmount: "auto",
+  dstChainId: '42161',
+  dstChainTokenOut: arbUsdcAddress,
+  dstChainTokenOutRecipient: wallet.address,
+  account: wallet.address,
+  srcChainOrderAuthorityAddress: wallet.address,
+  dstChainOrderAuthorityAddress: wallet.address,
+  referralCode: 31805
+};
+```
+
+---
+
+## Choosing a Strategy
+
+| **Use Case**                       | **Recommended Strategy**        |
+| ---------------------------------- | ------------------------------- |
+| Standard transfer with known input | Market Order                    |
+| Full wallet balance transfer       | Market Order with Full Balance  |
+| Target fixed destination output    | Reverse Market Order            |
+| Exact 1-to-1 trade (limit)         | Limit Order *(not recommended)* |

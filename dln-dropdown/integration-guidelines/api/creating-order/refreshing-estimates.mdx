@@ -1,0 +1,40 @@
+---
+title: 'Refreshing Estimates'
+description: 'How and when the estimates should be refreshed.'
+---
+
+## Transaction Submission Timing
+
+It is recommended that transactions returned by the `create-tx` API be signed and submitted within **30 seconds**. When `response.tx` is submitted
+within this window, the likelihood of successful order execution exceeds **99.9%**.
+
+There is no explicit time-to-live (TTL) on the transaction itself — i.e., the period between receiving the `create-tx` response and submitting it
+on-chain. Transactions may remain valid for extended periods, especially when no [pre-order-swap](/dln-specifics/bridging-non-reserve-assets) is
+involved or the [pre-order-swap](/dln-specifics/bridging-non-reserve-assets) is between stablecoins.
+
+---
+
+## Handling Operating Expense Fluctuations
+
+When the `prependOperatingExpenses` [parameter](/integration-guidelines/api/creating-order/api-parameters/api-parameters) is enabled, special
+attention must be paid to how token approval amounts are set.
+
+If the allowance **exactly matches** `response.estimation.srcChainTokenIn.amount` and there's a delay — typically more than a minute — before
+submitting `response.tx`, operating expenses may increase. In that case the estimate should be refreshed. If the updated expense exceeds the approved
+amount, an additional approval step is required, degrading the experience.
+
+### Recommendation
+
+- **Set token allowance to infinity** if user experience allows
+- **Or** add a 30% buffer when setting the allowance to absorb changes
+
+```ts
+const { approximateOperatingExpense } = response.estimation.srcChainTokenIn;
+const approveAmount = srcChainTokenInAmount + approximateOperatingExpense * 1.3;
+```
+
+This ensures the approved amount remains sufficient even if gas costs or execution fees rise before submission.
+
+---
+
+You can find more examples in the [code reference](https://github.com/debridge-finance/api-integrator-example/tree/master/src/scripts/orders)
