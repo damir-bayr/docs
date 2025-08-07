@@ -1,0 +1,55 @@
+---
+title: "Fees and Supported Chains"
+---
+deBridge takes a flat fee for each cross-chain message transfer, which users pay for decentralization and confidence since half of all fees will go as
+a reward to [deBridge validators](https://app.debridge.finance/validation-progress) who will be [financially
+liable](/dmp/slashing-and-delegated-staking) for the proper operation of the protocol as liquid assets staked for them will act as protocol financial
+guarantees.
+
+The fee is paid in the blockchain's native (gas) token. For example, if the transfer is performed from the Ethereum chain, then the fixed ETH amount
+will be deducted from the user's wallet towards the protocol treasury on Ethereum.
+
+Fees paid for every sent message can be seen in [deBridge Explorer](https://app.debridge.finance/explorer) or retrieved from the state of the
+[`DebridgeGate` smart contract](/dev-guides/evm/building-evm-dapp).
+
+<Info>
+
+deBridge flat fees can be changed by governance. Hence, for any on-chain interactions with deBridge, fees must not be hardcoded but queried
+dynamically from the state of the `DebridgeGate` smart contract.
+
+</Info>
+
+# Current flat fee for messages sent from different chains
+
+| **Chain**           | **Chain ID** | **Internal Chain ID** | **Message Transfer Fee** | **Block Finality** |
+|---------------------|--------------|------------------------|---------------------------|---------------------|
+| Arbitrum            | 42161        | 42161                  | 0.001 ETH                 | 12                  |
+| Avalanche           | 43114        | 43114                  | 0.05 AVAX                 | 12                  |
+| BNB Chain           | 56           | 56                     | 0.005 BNB                 | 12                  |
+| Ethereum            | 1            | 1                      | 0.001 ETH                 | 12                  |
+| Polygon             | 137          | 137                    | 0.5 MATIC                 | 256                 |
+| Fantom              | 250          | 250                    | 4 FTM                     | 12                  |
+| Solana              | 7565164      | 7565164                | 0.03 SOL                  | Status Finalized    |
+| Linea               | 59144        | 59144                  | 0.001 ETH                 | 12                  |
+| Optimism            | 10           | 10                     | 0.001 ETH                 | 12                  |
+| Base                | 8453         | 8453                   | 0.001 ETH                 | 12                  |
+| Neon                | 245022934    | 100000001              | 0.75 NEON                 | 32                  |
+| Gnosis              | 100          | 100000002              | 1 xDAI                    | 12                  |
+| Lightlink *(suspended)* | 1890    | 100000003              | 0.0005 ETH                | 12                  |
+| Metis               | 1088         | 100000004              | 0.02 METIS                | 12                  |
+| Bitrock             | 7171         | 100000005              | 20 BROCK                  | 12                  |
+| Sonic               | 146          | 100000014              | 1 S                       | 24                  |
+| CrossFi             | 4158         | 100000006              | 1 XFI                     | 12                  |
+| Cronos zkEVM        | 388          | 100000010              | 7 zkCRO                   | 12                  |
+| Abstract            | 2741         | 100000017              | 0.0004 ETH                | 12                  |
+| Berachain           | 80094        | 100000020              | 0.02 BERA                 | 12                  |
+| Story               | 1514         | 100000013              | 0.01 IP                   | 12                  |
+| HyperEVM            | 999          | 100000022              | 0.05 WHYPE                | 12                  |
+| Zircuit             | 48900        | 100000015              | 0.001 ETH                 | 12                  |
+| Flow                | 747          | 100000009              | 2.5 FLOW                  | 12                  |
+| Zilliqa             | 32769        | 100000008              | 50 ZIL                    | 12                  |
+| BOB                 | 60808        | 100000021              | 0.001 ETH                 | 12                  |
+| Mantle              | 5000         | 100000023              | 2 MNT                     | 12                  |
+| Plume               | 98866        | 100000024              | 7 PLUME                   | 12                  |
+| Sophon              | 50104        | 100000025              | 1 SOPH                    | 12                  |
+| Sei                 | 1329         | 100000027              | 6 SEI                     | 12                  |

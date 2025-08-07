@@ -9,92 +9,166 @@
   },
   "favicon": "/favicon.ico",
   "navigation": {
-    "tabs": [
+    "dropdowns": [
       {
-        "tab": "Home",
-        "groups": [
+        "dropdown": "deBridge",
+        "icon": "house",
+        "tabs": [
           {
-            "group": "Welcome",
-            "pages": [
-              "home/welcome",
-              "home/use-cases"
+            "tab": "Home",
+            "groups": [
+              {
+                "group": "Welcome",
+                "pages": [
+                  "home/welcome",
+                  "home/use-cases"
+                ]
+              },
+              {
+                "group": "Legal",
+                "pages": [
+                  "overview/legal"
+                ]
+              },
+              {
+                "group": "deBridge Points",
+                "pages": [
+                  "affiliates/referrers",
+                  "affiliates/integrators"
+                ]
+              }
             ]
           },
           {
-            "group": "Legal",
-            "pages": [
-              "overview/legal"
-            ]
-          },
-          {
-            "group": "deBridge Points",
-            "pages": [
-              "affiliates/referrers",
-              "affiliates/integrators"
+            "tab": "Products",
+            "groups": [
+              {
+                "group": "deBridge Messaging Protocol",
+                "pages": [
+                  "dmp/overview"
+                ]
+              },
+              {
+                "group": "deBridge Liquidity Network",
+                "pages": [
+                  "dln/overview"
+                ]
+              },
+              {
+                "group": "IAAS",
+                "pages": [
+                  "iaas/getting-started"
+                ]
+              },
+              {
+                "group": "dePort",
+                "pages": [
+                  "dePort/getting-started",
+                  "dePort/transfer-flow"
+                ]
+              }
             ]
           }
         ]
       },
       {
-        "tab": "Products",
-        "groups": [
+        "dropdown": "DMP",
+        "icon": "envelope",
+        "tabs": [
           {
-            "group": "deBridge Messaging Protocol",
-            "pages": [
-              "dmp/overview"
+            "tab": "deBridge Messaging Protocol",
+            "groups": [
+              {
+                "group": "Overview",
+                "pages": [
+                  "dmp-dropdown/dmp/protocol-overview",
+                  "dmp-dropdown/dmp/fees-supported-chains",
+                  "dmp-dropdown/dmp/deployed-contracts",
+                  "dmp-dropdown/dmp/security",
+                  "dmp-dropdown/dmp/slashing-and-delegated-staking"
+                ]
+              },
+              {
+                "group": "Legal",
+                "pages": [
+                  "dmp-dropdown/overview/legal"
+                ]
+              },
+              {
+                "group": "Dev Guides",
+                "pages": [
+                  "dmp-dropdown/dev-guides/cross-chain-call-lifecycle",
+                  "dmp-dropdown/dev-guides/development-tools",
+                  "dmp-dropdown/dev-guides/gathering-data-for-claim"
+                ]
+              }
             ]
           },
           {
-            "group": "deBridge Liquidity Network",
-            "pages": [
-              "dln/overview"
+            "tab": "EVM",
+            "groups": [
+              {
+                "group": "Examples",
+                "pages": [
+                  "dmp-dropdown/dev-guides/evm/building-evm-dapp",
+                  "dmp-dropdown/dev-guides/evm/introduction"
+                ]
+              },
+              {
+                "group": "Interfaces",
+                "pages": [
+                  "dmp-dropdown/dev-guides/evm/interfaces/ICallProxy",
+                  "dmp-dropdown/dev-guides/evm/interfaces/IDeBridgeGate",
+                  "dmp-dropdown/dev-guides/evm/interfaces/IDeBridgeToken",
+                  "dmp-dropdown/dev-guides/evm/interfaces/IDeBridgeTokenDeployer",
+                  "dmp-dropdown/dev-guides/evm/interfaces/IOraclesManager",
+                  "dmp-dropdown/dev-guides/evm/interfaces/ISignatureVerifier",
+                  "dmp-dropdown/dev-guides/evm/interfaces/IWethGate"
+                ]
+              },
+              {
+                "group": "Libraries",
+                "pages": [
+                  "dev-guides/evm/libraries/flags"
+                ]
+              },
+              {
+                "group": "Periphery",
+                "pages": [
+                  "dmp-dropdown/dev-guides/evm/periphery/CallProxy",
+                  "dmp-dropdown/dev-guides/evm/periphery/DeBridgeToken",
+                  "dmp-dropdown/dev-guides/evm/periphery/DeBridgeTokenProxy",
+                  "dmp-dropdown/dev-guides/evm/periphery/SimpleFeeProxy"
+                ]
+              },
+              {
+                "group": "Transfers",
+                "pages": [
+                  "dmp-dropdown/dev-guides/evm/transfers/DeBridgeGate",
+                  "dmp-dropdown/dev-guides/evm/transfers/DeBridgeTokenDeployer",
+                  "dmp-dropdown/dev-guides/evm/transfers/OraclesManager",
+                  "dmp-dropdown/dev-guides/evm/transfers/SignatureVerifier",
+                  "dmp-dropdown/dev-guides/evm/transfers/WethGate"
+                ]
+              }
             ]
           },
           {
-            "group": "IAAS",
-            "pages": [
-              "iaas/getting-started"
-            ]
-          },
-          {
-            "group": "dePort",
-            "pages": [
-              "dePort/getting-started",
-              "dePort/transfer-flow"
+            "tab": "Solana",
+            "groups": [
+              {
+                "group": "Cross-Chain Calls",
+                "pages": [
+                  "dmp-dropdown/dev-guides/solana/sending-cross-chain-messages",
+                  "dmp-dropdown/dev-guides/solana/on-chain-external-call-preparation",
+                  "dmp-dropdown/dev-guides/solana/off-chain-external-call-preparation"
+                ]
+              }
             ]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "deBridge Home",
-          "href": "https://acme-68677d63.mintlify.app/",
-          "icon": "house"
-        },
-        {
-          "anchor": "deBridge Messaging Protocol",
-          "href": "https://acme-fc8786fa.mintlify.app/dmp/protocol-overview",
-          "icon": "envelope"
-        },
-        {
-          "anchor": "deBridge Liquidity Network",
-          "href": "https://acme-1c46979f.mintlify.app/overview/introduction",
-          "icon": "envelope-open-dollar"
-        },
-        {
-          "anchor": "Gasless DLN",
-          "href": "https://acme-ad8c06cd.mintlify.app/overview/executive-summary",
-          "icon": "gas-pump-slash"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "discord"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/debridge-dark.svg",
