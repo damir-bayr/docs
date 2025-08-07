@@ -95,7 +95,7 @@ library Flags {
 `PROXY_WITH_SENDER` flag should be used if the receiving smart contract must validate that the message sender is trusted. When set, the deBridge
 protocol stores `submissionNativeSender` and `submissionChainIdFrom`, allowing the recipient contract to verify the sender.
 
-![External Call](/images/dmp/dmp-contracts-intro.avif)
+![External Call](/images/dmp-dropdown/dmp-contracts-intro.avif)
 
 The receiving smart contract can retrieve the callProxy address from the `debridgeGate` smart contract. Use
 [`onlyControllingAddress`](https://github.com/debridge-finance/debridge-contracts-v1/blob/main/contracts/examples/BridgeAppBase.sol#L62) modifier or

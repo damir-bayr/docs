@@ -6,7 +6,7 @@ deBridge is DeFi's internet of liquidity, enabling any amount of cross-chain int
 transaction. Due to the ability to simultaneously send messages and value deBridge acts as a unified framework for all cross-chain needs and is
 capable of interconnecting any smart contract on any supported blockchain.
 
-![Cross-Chain Message Diagram](/images/dmp/evm-dapp-1.png)
+![Cross-Chain Message Diagram](/images/dmp-dropdown/evm-dapp-1.png)
 
 This guide is a great starting point that covers all necessary topics to get you started building cross-chain interactions on top of the deBridge
 protocol and its' infrastructure.
@@ -18,7 +18,7 @@ words, when we perform some action against the `Incrementor` contract, it initia
 protocol) which is being started on one chain, relayed to, and then executed on another chain; during this cross-chain transaction, a `Counter` contract
 is called. The following image presents a high-level overview of a cross-chain transaction we are going to achieve:
 
-![Dapp Diagram](/images/dmp/evm-dapp-2.png)
+![Dapp Diagram](/images/dmp-dropdown/evm-dapp-2.png)
 
 This document will guide you through building contracts, scripts and unit tests necessary to make this project happen. A self-contained source code of
 this dApp can be found on [Github](https://github.com/debridge-finance/debridge-cross-chain-dapp-example)
@@ -236,7 +236,7 @@ behavior of the gate. The following flags are important to be set in our case:
 
 <Info>
 
-A complete list of flags with their description can be found on [EVM smart contract interfaces page](/dev-guides/evm/libraries/flags).
+A complete list of flags with their description can be found on [EVM smart contract interfaces page](dmp-dropdown/dev-guides/evm/libraries/flags).
 
 </Info>
 
@@ -341,7 +341,7 @@ cross-chain transaction is being initiated.
 
 <Tip>
 
-Consider reading the [Lifecycle of a cross-chain](/dev-guides/cross-chain-call-lifecycle) call to get yourself familiar with how the cross-chain calls
+Consider reading the [Lifecycle of a cross-chain](dmp-dropdown/dev-guides/cross-chain-call-lifecycle) call to get yourself familiar with how the cross-chain calls
 are handled.
 
 </Tip>
@@ -429,7 +429,7 @@ rather than calling your RPC's `eth_estimateGas` endpoint.
 - Watch the walkthrough video on how to use deBridge emulator for your development environment:
 
 debridge protocol advanced topics:
-- [Gathering data for the claim](/dev-guides/gathering-data-for-claim)
+- [Gathering data for the claim](dmp-dropdown/dev-guides/gathering-data-for-claim)
 - deBridge protocol flags explained (coming soon)
 - Transaction bundling explained (coming soon)
 - Execution fee explained (coming soon)

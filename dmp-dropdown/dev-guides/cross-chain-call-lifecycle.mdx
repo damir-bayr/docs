@@ -10,7 +10,7 @@ The following scheme visualizes a normal cycle of a typical cross-chain call, as
 dApp](https://github.com/debridge-finance/debridge-cross-chain-dapp-example) where Incrementor is used as an example of the smart contract that sends
 a cross-chain message:
 
-![Cross-chain Call Lifecycle](/images/dmp/cross-chain-call-lifecycle.png)
+![Cross-chain Call Lifecycle](/images/dmp-dropdown/cross-chain-call-lifecycle.png)
 
 When a call to the `deBridgeGate.send()` method is made on the origin (source) chain, the gate contract validates the input (its args and the
 `autoParams` struct), and if everything is correct (the data is unambiguous, the input asset covers the fees, etc), a special `Sent` event is emitted.
@@ -30,7 +30,7 @@ all supported chains, and for each tracked event validator performs the followin
 
 <Note>
 
-Note: Validators' financial responsibility to be enabled through [Slashing and Delegated Staking](/dmp/slashing-and-delegated-staking).
+Note: Validators' financial responsibility to be enabled through [Slashing and Delegated Staking](dmp-dropdown/dmp/slashing-and-delegated-staking).
 
 </Note>
 
@@ -60,7 +60,7 @@ There are three ways to trigger a claiming transaction:
 - manually, by visiting [deExplorer](https://explorer.debridge.finance/), where you can find your cross-chain transaction by its `submissionId` or even
   by the hash of the origin transaction, then sign the prepared claiming transaction using the browser wallet (MetaMask, etc);
 
-![Claim Details](/images/dmp/claim-details.png)
+![Claim Details](/images/dmp-dropdown/claim-details.png)
 
 - automatically, by specifying sufficient `executionFee` property within your submission: in this case, Claimers will execute the transaction and
   deliver the message in case the supplied on the source chain `executionFee` (included gas) covers their gas on the destination chain. 

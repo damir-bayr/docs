@@ -17,10 +17,10 @@ The `create-tx` ednpoint is intentionally dual-purpose:
 This design intentionally removes the distinction between “get quote” and “build transaction” that exists in typical single-chain swap APIs.
 
 A detailed parameter reference & field-by-field response breakdown lives in the [API
-Parameters](/integration-guidelines/api/creating-order/api-parameters/api-parameters) and [API
-Response](/integration-guidelines/api/creating-order/api-parameters/response) sub-pages, while Swagger specs for `create-tx` can be explored
+Parameters](dln-dropdown/integration-guidelines/api/creating-order/api-parameters/api-parameters) and [API
+Response](dln-dropdown/integration-guidelines/api/creating-order/api-parameters/response) sub-pages, while Swagger specs for `create-tx` can be explored
 [here](/api-reference/dln/this-endpoint-returns-the-data-for-a-transaction-to-place-a-cross-chain-dln-order). For a hands-on walk-through, see the
-[Quick Start](/integration-guidelines/api/creating-order/quick-start) section of the docs.
+[Quick Start](dln-dropdown/integration-guidelines/api/creating-order/quick-start) section of the docs.
 
 # Why Quote and Transaction Are Paired
 
@@ -48,7 +48,7 @@ If dstChainTokenOutRecipient, srcChainOrderAuthorityAddress, or dstChainOrderAut
 <Danger>
 
 Passing the returned `srcChainTokenInAmount` and dstChainTokenOutAmount back to `create-tx` forces the endpoint into [limit-order quoting
-strategy](/integration-guidelines/api/creating-order/quoting-strategies) (both amounts fixed). Limit orders can drive solver profit negative, so they
+strategy](dln-dropdown/integration-guidelines/api/creating-order/quoting-strategies) (both amounts fixed). Limit orders can drive solver profit negative, so they
 are typically ignored—use the original quote + transaction pair and let the user sign immediately.
 
 </Danger>

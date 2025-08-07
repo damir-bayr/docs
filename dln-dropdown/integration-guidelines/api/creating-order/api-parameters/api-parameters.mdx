@@ -83,12 +83,12 @@ Reference to common and interesting use-cases. Deep dive into certain parameters
 ### Estimation Only
 
 The `create-tx` endpoint is designed for both estimation and transaction construction. It can be safely called without specifying [authority or
-recipient addresses](/integration-guidelines/api/creating-order/api-parameters/api-parameters#authorities-and-recipient-address) when a wallet address
+recipient addresses](dln-dropdown/integration-guidelines/api/creating-order/api-parameters/api-parameters#authorities-and-recipient-address) when a wallet address
 is not yet available—for example, during early stages of interaction in a dApp. In such cases, the endpoint can still be used to suggest input or
 output token amounts.
 
 Once the wallet address becomes available, the same `create-tx` request can be repeated with the necessary parameters to retrieve a [full transaction
-call](http://localhost:3000/integration-guidelines/api/creating-order/api-parameters/response#tx).
+call](http://localhost:3000dln-dropdown/integration-guidelines/api/creating-order/api-parameters/response#tx).
 
 To maintain solver profitability and ensure the order remains valid upon submission, it is recommended to allow the API to compute a reasonable output
 amount. This is achieved by setting the `dstChainTokenOutAmount` parameter to `auto` in both the estimation and transaction calls.
@@ -115,7 +115,7 @@ transparent. This approach helps clarify exactly what is being paid in fees.
 For example, swapping 100 USDC on Arbitrum for 100 USDC on Polygon in our application displays a small fee (just over $0.03), shown above the red line
 in the figure below. This represents the solver's operating expenses.
 
-![Prepend Operating Expenses](/images/dln/prependOperatingCosts.png)
+![Prepend Operating Expenses](/images/dln-dropdown/prependOperatingCosts.png)
 
 
 - **ERC20 Approval**: The total amount (including operating expenses) must be approved using the `approve` function. This value is provided in

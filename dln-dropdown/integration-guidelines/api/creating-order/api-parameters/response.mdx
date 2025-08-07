@@ -72,10 +72,10 @@ An array describing the cost components associated with the trade. Possible entr
 
 ## **`tx`**
   - `data`: The data that must be signed and submitted. It contains all necessary information to initiate a [cross-chain
-    order](/dln-specifics/bridging-reserve-assets), including cases involving [non-reserve assets](/dln-specifics/bridging-non-reserve-assets). It is
+    order](dln-dropdown/dln-specifics/bridging-reserve-assets), including cases involving [non-reserve assets](dln-dropdown/dln-specifics/bridging-non-reserve-assets). It is
     either a calldata (for EVM-based chains) or a serialized transaction (for Solana).
   - `to`: Destination address for the transaction. Acts as the spender in the `approve` call for ERC-20 tokens. Applicable to EVM source chains only.
-  - `value`: [Flat fee](/overview/fees-supported-chains) in the source chain's native currency charged by the DLN protocol. Applicable to EVM source chains only.
+  - `value`: [Flat fee](dln-dropdown/overview/fees-supported-chains) in the source chain's native currency charged by the DLN protocol. Applicable to EVM source chains only.
 
 ## **`prependedOperatingExpenseCost`** 
 Estimated operating cost added to the transaction, adjusted for token decimals. Present only if the request was made with `prependOperatingExpenses` enabled.
@@ -93,10 +93,10 @@ An object containing details required to facilitate the cross-chain trade.
 
 ## **`orderId`**  
   A deterministic identifier for the order. The same ID is used on both source and destination chains and can be used to [track order
-  status](/integration-guidelines/api/monitoring-orders/rest).
+  status](dln-dropdown/integration-guidelines/api/monitoring-orders/rest).
 
 ## **`fixFee`**  
-  [Flat fee](/overview/fees-supported-chains) charged in the source chain's native currency. This matches `tx.value` for EVM-based chains.
+  [Flat fee](dln-dropdown/overview/fees-supported-chains) charged in the source chain's native currency. This matches `tx.value` for EVM-based chains.
 
 ## **`userPoints`**  
   The number of deBridge points that the user will get for this trade.

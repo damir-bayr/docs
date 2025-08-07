@@ -20,7 +20,7 @@ parameters. After the order is fulfilled, a solver initiates a cross-chain messa
  to the source chain via the deBridge messaging protocol. When the message is delivered, it unlocks the funds on the 
  source chain to the solver’s address, effectively completing the order. Below is a graphic outlining the process:
 
-![Order execution flow diagram](/images/dln/order-execution-flow.avif)
+![Order execution flow diagram](/images/dln-dropdown/order-execution-flow.avif)
 
 # Order Creation
 
@@ -33,7 +33,7 @@ should be sent to on the destination chain, and other system parameters. The sma
 nonce). The given amount of input token is taken from the user by the DlnSource contract and locked until the order 
 is either unlocked or canceled, which can happen only through the DlnDestination smart contract on the destination chain.
 
-![Source Chain Order Creation](/images/dln/source-chain-order-creation.avif)
+![Source Chain Order Creation](/images/dln-dropdown/source-chain-order-creation.avif)
 
 # Order fulfillment
 
@@ -48,7 +48,7 @@ passed by the solver and if the order status hasn’t been assigned as fulfilled
 the order by pulling the necessary amount of requested tokens from the solver and sending it to the receiver address, 
 finally assigning ‘fulfilled status’ to the order.
 
-![Destination Chain Order Fulfillment Diagram](/images/dln/destination-chain-order-fulfillment.avif)
+![Destination Chain Order Fulfillment Diagram](/images/dln-dropdown/destination-chain-order-fulfillment.avif)
 
 If the order generates some profit for the one who fulfills it, then solvers will have fair competition for its fulfillment. 
 For example, an order to exchange 1000 USDC on BNB Chain for 990 USDC on Solana will bring 10 USDC profit to the solver that 
@@ -63,7 +63,7 @@ ability to call `DlnDestination.sendUnlock()` method which sends a cross-chain m
 `DlnSource` smart contract on the source chain. This message encodes a command to unlock funds initially locked for the given 
 order identifier, and sends them to the address specified by the solver.
 
-![Unlocking Fulfilled Orders Diagram](/images/dln/unlocking-orders.avif)
+![Unlocking Fulfilled Orders Diagram](/images/dln-dropdown/unlocking-orders.avif)
 
 When the `DlnSource` smart contract receives a message, before executing the command, it checks the identity of the message sender 
 (address and chain id), to make sure it matches the identity of the `DlnDestination` smart contract stored in its state.
@@ -98,4 +98,4 @@ take profits according to their risk profiles without affecting users.
 solutions without exception. The deBridge messaging infrastructure has a delegated staking and slashing module as part of the protocol design which 
 prevents any theoretical collusion of validators.
 
-![Risk distribution diagram](/images/dln/risk-distribution.avif)
+![Risk distribution diagram](/images/dln-dropdown/risk-distribution.avif)

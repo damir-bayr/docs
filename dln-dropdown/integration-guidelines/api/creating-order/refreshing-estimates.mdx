@@ -9,14 +9,14 @@ It is recommended that transactions returned by the `create-tx` API be signed an
 within this window, the likelihood of successful order execution exceeds **99.9%**.
 
 There is no explicit time-to-live (TTL) on the transaction itself — i.e., the period between receiving the `create-tx` response and submitting it
-on-chain. Transactions may remain valid for extended periods, especially when no [pre-order-swap](/dln-specifics/bridging-non-reserve-assets) is
-involved or the [pre-order-swap](/dln-specifics/bridging-non-reserve-assets) is between stablecoins.
+on-chain. Transactions may remain valid for extended periods, especially when no [pre-order-swap](dln-dropdown/dln-specifics/bridging-non-reserve-assets) is
+involved or the [pre-order-swap](dln-dropdown/dln-specifics/bridging-non-reserve-assets) is between stablecoins.
 
 ---
 
 ## Handling Operating Expense Fluctuations
 
-When the `prependOperatingExpenses` [parameter](/integration-guidelines/api/creating-order/api-parameters/api-parameters) is enabled, special
+When the `prependOperatingExpenses` [parameter](dln-dropdown/integration-guidelines/api/creating-order/api-parameters/api-parameters) is enabled, special
 attention must be paid to how token approval amounts are set.
 
 If the allowance **exactly matches** `response.estimation.srcChainTokenIn.amount` and there's a delay — typically more than a minute — before

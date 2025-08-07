@@ -8,7 +8,7 @@ With just a few lines of code, all projects and developers can embed a cross-cha
 website, dApp, etc.) based on the deBridge protocol. You can make the deBridge widget part of your app and you're fully free to customize colors,
 fonts, chains, and tokens according to your design and preferences.
 
-![Widget Image](/images/dln/widget.avif)
+![Widget Image](/images/dln-dropdown/widget.avif)
 
 # Requirements
 The widget is based on web technology, that's why your app must support technology such as JavaScript, HTML, CSS or use webView to add the widget. 
@@ -93,7 +93,7 @@ The styles field contains the fields:
   fontFamily: string    
 }
 ```
-![Widget Styles](/images/dln/widget-styles.png)
+![Widget Styles](/images/dln-dropdown/widget-styles.png)
 
 <Accordion title="HTML Example">
 ```html
@@ -422,7 +422,7 @@ Connects an external EVM-compatible wallet.
     widget.setExternalEVMWallet({
       provider: window.phantom?.ethereum,
       name: "Metamask",
-      imageSrc: 'https://app.debridge.finance/assets/images/dln/wallet/metamask.svg'
+      imageSrc: 'https://app.debridge.finance/assets/images/dln-dropdown/wallet/metamask.svg'
     });
     ```
 
@@ -436,7 +436,7 @@ Connects an external Solana-compatible wallet.
     widget.setExternalSolanaWallet({
       provider: window.solana,
       name: "Phantom",
-      imageSrc: 'https://app.debridge.finance/assets/images/dln/wallet/phenom.svg'
+      imageSrc: 'https://app.debridge.finance/assets/images/dln-dropdown/wallet/phenom.svg'
     });
     ```
 
