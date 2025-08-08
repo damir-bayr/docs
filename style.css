@@ -1,0 +1,14 @@
+/* Docs › style.css – dark-mode fix for the whole <select> *and* its <option>s */
+select.text-playground-input,
+select.text-playground-input option,
+select.text-playground-input optgroup {
+  /* background / text / border to match Mintlify’s dark UI */
+  background-color: #090D0D;   /* slate-800 */
+  color:            #f3f4f6;   /* slate-100 */
+}
+
+/* Optional: highlight the current choice so it doesn’t disappear on dark BG */
+select.text-playground-input option:checked {
+  background-color: #090D0D;   /* slate-700 */
+  color:            #f8fafc;   /* slate-50  */
+}
