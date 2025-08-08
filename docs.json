@@ -18,22 +18,17 @@
         },
         {
           "anchor": "deBridge Messaging Protocol",
-          "href": "https://acme-fc8786fa.mintlify.app/dmp/protocol-overview",
+          "href": "https://acme-68677d63.mintlify.app/dmp-dropdown/dmp/protocol-overview",
           "icon": "envelope"
         },
         {
           "anchor": "deBridge Liquidity Network",
-          "href": "https://acme-1c46979f.mintlify.app/overview/introduction",
+          "href": "https://acme-68677d63.mintlify.app/dln-dropdown/overview/introduction",
           "icon": "envelope-open-dollar"
         },
         {
-          "anchor": "Gasless DLN",
-          "href": "https://acme-ad8c06cd.mintlify.app/overview/executive-summary",
-          "icon": "gas-pump-slash"
-        },
-        {
           "anchor": "Community",
-          "href": "https://mintlify.com/community",
+          "href": "https://discord.com/invite/debridge",
           "icon": "discord"
         }
       ]
@@ -199,7 +194,7 @@
       },
       {
         "dropdown": "DLN",
-        "icon": "bridge",
+        "icon": "envelope-open-dollar",
         "tabs": [
           {
             "tab": "deBridge Liquidity Network",
@@ -345,20 +340,14 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "https://discord.com/invite/debridge"
       }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
+    ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/debridge",
+      "github": "https://github.com/debridge-finance/"
     }
   }
 }
