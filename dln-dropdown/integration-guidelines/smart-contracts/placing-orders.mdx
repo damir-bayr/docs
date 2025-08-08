@@ -21,7 +21,7 @@ On the other hand, DLN is an open market, so anyone can become a solver and exec
 Let's assume you've swapped your 1 wBTC to 25,000 USDC which will be then used upon order creation.
 
 Second, calculate the reasonable amount of tokens you are willing to receive on the destination chain upon order fulfillment according to the current
-market condition and the protocol fees. Simply speaking, give at least 4 bps (DLN protocol fee) + 4 bps (Taker's incentive) = 8 bps + $6 (expected gas
+market condition and the protocol fees. Simply speaking, give at least 4 bps (DLN protocol fee) + 4 bps (Taker's incentive) = 8 bps + \$6 (expected gas
 expenses taken by the taker to fulfill the order). This amount is laid in as a spread of the limit order, or margin between input and output tokens.
 Getting back to the example, the math below gives us a reasonable amount of DOGE we are willing to take:
 
@@ -243,7 +243,7 @@ Finally, you are ready to initiate a cancellation procedure:
 ```solidity
 uint protocolFee = IDebridgeGate(DlnDestination(dlnDestinationAddress).deBridgeGate())
     .globalFixedNativeFee();
-uint executionFee = 30000000000000000; // e.g. 0.03 BNB ≈ $10
+uint executionFee = 30000000000000000; // e.g. 0.03 BNB ≈ \$10
 DlnDestination(dlnDestinationAddress).sendEvmOrderCancel{value: protocolFee + executionFee}(
     order,
     0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045,
