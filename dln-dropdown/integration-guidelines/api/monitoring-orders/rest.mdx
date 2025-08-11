@@ -25,8 +25,7 @@ Any of these states can be treated as successfully completed final states for ap
 
 ## Quick Start
 - **Base URL:** `https://stats-api.dln.trade`
-- **Full endpoint reference:** [Swagger](https://dln-api.debridge.finance/swagger/index.html#/Orders/Orders_GetOrderByCreationTx) and
-  [Redoc](https://stats-api.dln.trade/redoc/index.html?url=/swagger/v1/swagger.json#tag/Orders/operation/Orders_GetOrders)
+- **Full endpoint reference:** [Swagger](/api-reference/orders/get-order-by-events-by-orderid)
 - **Examples:** See the implementation examples in this [GitHub
   repository](https://github.com/debridge-finance/api-integrator-example/tree/master/src/scripts/orders/queries).
 
@@ -34,7 +33,7 @@ Any of these states can be treated as successfully completed final states for ap
 
 ### By Wallet Address
 
-The [`POST /api/Orders/filteredList`](https://stats-api.dln.trade/redoc/index.html?url=/swagger/v1/swagger.json#tag/Orders/operation/Orders_GetOrders)
+The [`POST /api/Orders/filteredList`](/api-reference/orders/get-filtered-list-of-orders-ordered-by-block-timestamp-desc-max-page-size:-100)
 endpoint retrieves the current state and historical data for all orders associated with a wallet address. This endpoint is also used to populate the
 trade history view in [deExplorer](https://app.debridge.finance/orders).
 
@@ -171,6 +170,11 @@ export async function getOrderStatusByOrderId(orderId: string) {
   return data;
 }
 ```
+
+### Order Fulfillment Transaction
+
+When order fulfillment transactions are important in the integration, they can be found inside of an each `order` returned by the API by referencing
+the `fulfilledDstEventMetadata.transactionHash` field. 
 
 ## Affiliate Fee Settlement
 
