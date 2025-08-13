@@ -1,0 +1,51 @@
+---
+title: "Auto Cancellation Overview"
+description: "How auto cancellations work for orders with a referral code."
+---
+
+# Auto Cancellation Overview
+
+Auto cancellation can be enabled for orders associated with a referral code. This mechanism improves user experience by automatically cancelling
+unfulfilled orders after a fixed timeout period.
+
+<Note>
+
+This feature is strictly available through an approval from deBridge. To enable this feature, deBridge must be contacted.
+
+</Note>
+
+---
+
+## How it works
+
+- **Timeout duration:** 20 minutes  
+- **Condition:** If an order is not fulfilled within this period, it is automatically cancelled, along with any external calls (hooks)
+- **Benefit:** Users do not need to manually cancel the order on the destination chain, greatly improving the UX
+- **Cost:** The cancellation fee is subsidized by deBridge
+
+---
+
+## Returned funds and asset types
+
+Upon cancellation, returned funds are generally not the same asset originally sent.  
+When orders are created, tokens are swapped for [**reserve assets**](/dln-dropdown/dln-specifics/reserve-assets) to simplify solver book balancing.  
+Assets with sufficient on-chain liquidity remain tradable.
+
+<Warning>
+
+In most cases, USDC will be used. If the reserve asset on one chain is USDC, but on another it is ETH or wETH, USDC will be used on both the source
+and destination chains.
+
+</Warning>
+
+---
+
+## Required integration parameters
+
+<Danger>
+
+The `srcChainOrderAuthorityAddress`
+[parameter](/dln-dropdown/integration-guidelines/api/creating-order/api-parameters/api-parameters#authorities-and-recipient-address) must be set to
+the user’s wallet address. This address acts as the beneficiary of returned funds in the event of a cancellation. If not set correctly, funds may be lost.
+
+</Danger>

@@ -1,0 +1,38 @@
+---
+title: "Using Referral Codes in Integrations"
+description: "Learn how to use referral codes in deBridge integrations to track orders and unlock advanced features."
+---
+
+# Referral Codes for Integrators
+
+When integrating deBridge into a product, the **referral code** can be attached to every order. This is more than just a way to track
+traffic — it’s a powerful identifier that allows:
+
+- **Tracking all orders created through an integration**  
+- **Measure performance and usage** of an integration in real time  
+- **Enable or disable certain features** on a per-integrator basis
+
+---
+
+## Why referral codes matter
+
+For integrators, the referral code acts as a unique ID in the deBridge ecosystem. Every order sent with the referral code is linked back to the integration,
+giving both the integrator and deBridge:
+
+- **Analytics visibility** — see how many orders are being processed from an integration platform, along with the volumes  
+- **Feature toggles** — activate or deactivate specific features for a specific integration, like [auto-cancellations](/dln-dropdown/affiliates/auto-cancellations)
+- **Custom support** — faster debugging and troubleshooting when the referral code is provided
+
+---
+
+## Adding the referral code
+
+When creating an order via the API, include the `referralCode`
+[parameter](/dln-dropdown/integration-guidelines/api/creating-order/api-parameters/api-parameters#referral-code) in the request.
+
+If integrating via the [Widget](/dln-dropdown/widget/deBridge-widget), the referral code is set via `r=xxxxx` parameter.
+
+## Tracking orders via `referralCode`
+
+Tracking the orders via a referral code is simple, the examples can be seen [here](/dln-dropdown/integration-guidelines/api/monitoring-orders/rest#by-referralcode)
+or on [GitHub](https://github.com/debridge-finance/api-integrator-example/blob/master/src/scripts/orders/queries/get-orders-by-referral-code.ts).

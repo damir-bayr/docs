@@ -249,7 +249,9 @@
                 "group": "Affiliates",
                 "pages": [
                   "dln-dropdown/affiliates/referrers",
-                  "dln-dropdown/affiliates/integrators"
+                  "dln-dropdown/affiliates/integrators",
+                  "dln-dropdown/affiliates/referral-code",
+                  "dln-dropdown/affiliates/auto-cancellations"
                 ]
               }
             ]

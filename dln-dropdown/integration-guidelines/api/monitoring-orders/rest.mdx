@@ -69,6 +69,23 @@ const requestBody = {
 };
 ```
 
+### By `referralCode`
+
+Orders created through specific integrations can also be tracked by using the `referralCode` parameter attached to each API request.
+
+```ts
+  const requestBody = {
+    giveChainIds: [],
+    // All of these are considered to be fulfilled 
+    // from the end-user's perspective
+    orderStates: ['Fulfilled', 'SentUnlock', 'ClaimedUnlock' ],
+    externalCallStates: ['NoExtCall'],
+    skip: 0,
+    take: 3,
+    referralCode: "31805",
+  };
+```
+
 ### By Transaction Hash
 
 For inspecting a specific order, use:
