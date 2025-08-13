@@ -129,4 +129,17 @@ in the figure below. This represents the solver's operating expenses.
 When disabled, `response.estimation.srcChainTokenIn.amount` equals the `srcChainTokenInAmount` specified in the original `create-tx` request. In this
 case, the [operating expenses](/fee-structure#runtime-costs-built-into-the-spread) are subtracted directly from the spread between the input value and `response.estimation.dstChainTokenOut`.
 
+In this case, an additional error should be covered. It occurs when the input amount is too small to pay for the order costs. 
+```
+{
+    "errorCode": 12,
+    "errorId": "ERROR_LOW_GIVE_AMOUNT",
+    "errorMessage": "Given amount of input asset is too small to cover operational costs of Takers, cannot estimate reasonable outcome of an order",
+    "reqId": "79a2c431-e52c-48c0-a12e-2a9960644a59"
+}
+```
+
+[Sample error
+request](https://dln.debridge.finance/v1.0/dln/order/create-tx?prependOperatingExpenses=false&dstChainTokenOutAmount=auto&srcChainId=137&dstChainId=42161&srcChainTokenIn=0x3c499c542cef5e3811e1192ce70d8cc03d5c3359&dstChainTokenOut=0xaf88d065e77c8cc2239327c5edb3a432268e5831&srcChainOrderAuthorityAddress=0x55a8f5cce1d53d9ff84ec0962882b447e5914db8&dstChainOrderAuthorityAddress=0x55a8f5cce1d53d9ff84ec0962882b447e5914db8&dstChainTokenOutRecipient=0x55a8f5cce1d53d9ff84ec0962882b447e5914db8&srcChainTokenInAmount=100000&referralCode=31085&senderAddress=0x55a8f5cce1d53d9ff84ec0962882b447e5914db8).
+
 Both modes produce the same execution outcome, but enabling `prependOperatingExpenses` typically provides a clearer breakdown of the fee structure for end users.
